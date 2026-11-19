@@ -126,7 +126,7 @@ RUOD has 14,000 images and 10 classes (official split 9,800 train / 4,200 test).
 
 ## 3. The numbers
 
-**How the numbers were checked:** every AP and AP50 below was recomputed on the laptop from the saved raw detections. All 16 runs match the stored values exactly. The other metrics come from the same pycocotools run on the GPU PC. **No confidence intervals yet** (section 6).
+**How the numbers were checked:** every AP and AP50 below was recomputed on the laptop from the saved raw detections. All 17 runs match the stored values exactly. The other metrics come from the same pycocotools run on the GPU PC. **No confidence intervals yet** (section 6).
 
 ### 3.1 Main table: DUO test set, 1,111 images
 
@@ -232,7 +232,7 @@ Common names are slightly better for both models. Note: OWLv2 with Latin names p
 
 Without the sentence, replies were cut off at the 1,536-token limit on 4 of 100 images (3B) and 18 of 100 (7B).
 
-**B-A2: lower image resolution, Qwen2.5-VL-7B, full test set** (numbers from the GPU PC's report; laptop check pending)
+**B-A2: lower image resolution, Qwen2.5-VL-7B, full test set**
 
 | Resolution | AP | AP50 | Boxes | Empty answers |
 |---|---|---|---|---|
