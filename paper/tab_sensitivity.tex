@@ -1,0 +1,24 @@
+\begin{table}[!ht]
+\centering
+\small
+\setlength{\tabcolsep}{2.8pt}
+\begin{tabular}{llcccc}
+\toprule
+ & & \multicolumn{2}{c}{All objects} & \multicolumn{2}{c}{Sea cucumbers} \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}
+Model & Boxes, IoU & Found & Named & Found & Named \\
+\midrule
+YOLO11n & 100, 0.5 & 96 & 95 & 97 & 96 \\
+ & 10, 0.5 & 66 & 66 & 68 & 67 \\
+ & 100, 0.7 & 86 & 86 & 89 & 89 \\
+Grounding DINO & 100, 0.5 & 69 & 59 & 61 & 4 \\
+ & 10, 0.5 & 31 & 25 & 21 & 0 \\
+ & 100, 0.7 & 55 & 47 & 49 & 4 \\
+OWLv2 & 100, 0.5 & 62 & 50 & 52 & 8 \\
+ & 10, 0.5 & 37 & 33 & 20 & 3 \\
+ & 100, 0.7 & 43 & 35 & 31 & 5 \\
+\bottomrule
+\end{tabular}
+\caption{Found and named shares (\%, full test set) when only the 10 highest-scoring boxes per image count, or with IoU $\geq$ 0.7. All 95\% bootstrap intervals are within $\pm$5 percentage points.}
+\label{tab:sensitivity}
+\end{table}

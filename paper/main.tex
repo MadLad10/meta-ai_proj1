@@ -48,13 +48,6 @@ We separate these causes on DUO \citep{liu2021duo}, an established underwater de
 \end{itemize}
 Our study covers one benchmark; Section~\ref{sec:discussion} discusses what this allows us to conclude.
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=\columnwidth]{fig_found_named.pdf}
-\caption{Share of DUO test objects that are \emph{found} (light: overlapped with IoU $\geq$ 0.5 by any of the image's 100 highest-scoring boxes, of any class) and \emph{named} (solid: overlapped by such a box with the correct class). Lines are 95\% bootstrap intervals. The fine-tuned YOLO11n finds and names almost every object. The zero-shot detectors find more than half of the sea cucumbers but name few of them; OWLv2 also names few of the scallops it finds.}
-\label{fig:found}
-\end{figure}
-
 \section{Related Work}
 
 \paragraph{Underwater detection benchmarks.}
@@ -97,10 +90,6 @@ A VLM returns a short, unranked list, while a detector returns a long, ranked on
 
 \section{Results}
 
-\input{tab_seacucumber}
-\input{tab_choices}
-\input{tab_budget}
-
 \subsection{The Zero-Shot Gap}
 \label{sec:gap}
 
@@ -108,6 +97,15 @@ Every zero-shot model is far below every fine-tuned detector (Table~\ref{tab:mai
 
 \subsection{Found but Misnamed}
 \label{sec:misnamed}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{fig_found_named.pdf}
+\caption{Share of DUO test objects that are \emph{found} (light: some box among the image's 100 highest-scoring ones overlaps them with IoU $\geq$ 0.5) and \emph{named} (solid: such a box has the correct class), with 95\% bootstrap intervals. The fine-tuned YOLO11n finds and names almost every object. The zero-shot detectors find more than half of the sea cucumbers but name few of them; OWLv2 also names few of the scallops it finds.}
+\label{fig:found}
+\end{figure}
+
+\input{tab_seacucumber}
 
 
 Figure~\ref{fig:examples} shows typical cases and Figure~\ref{fig:found} the totals. The fine-tuned YOLO11n finds \foundYoloN\% of all test objects and names \namedYoloN\%. Grounding DINO finds \foundGD\% \foundciGD{} and names \namedGD\% \namedciGD; OWLv2 finds \foundOWL\% \foundciOWL{} and names \namedOWL\% \namedciOWL. Both open-vocabulary detectors thus leave about a third of the objects without any overlapping box, and lose a further \lossNamingGD{} and \lossNamingOWL{} percentage points of objects to wrong labels. Because sea urchins make up \shareSeaUrchin\% of the objects and are mostly named correctly, these totals hide where naming fails.
@@ -141,6 +139,9 @@ The VLMs name objects better when the box is given. Qwen3-VL-8B reaches a mean a
 \subsection{Evaluation Choices Change the Verdict}
 \label{sec:choices}
 
+\input{tab_choices}
+\input{tab_budget}
+
 
 \paragraph{Output decoding.}
 The Hugging Face pipeline turns each Grounding DINO box into a text phrase, which must then be matched to a class name. On DUO, \pctUnmatchedText\% of these phrases (\nUnmatchedText{} of \nBoxesText) match no class, for example ``seachin'', a fragment of ``sea urchin'', or ``sea urchin starfish'', which names two classes, and such boxes are lost. Scoring the same forward pass as in Grounding DINO's own COCO evaluation, which reads class scores directly from the token outputs, raises AP from \apGDtext{} to \apGD{}, by \dDecoding{} \dciDecoding{} (Table~\ref{tab:choices}a). This exceeds the difference between OWLv2 and Grounding DINO, \dOwlGd{} \dciOwlGd, which is not significant. An evaluation that used the pipeline would conclude that OWLv2 is about twice as accurate as Grounding DINO.
@@ -172,6 +173,8 @@ We study one benchmark, so we cannot show that the specific confusions generaliz
 
 On an established underwater robot-picking benchmark, zero-shot open-vocabulary detectors and VLMs fall far short of small fine-tuned detectors. The two kinds of model fail in different ways. The open-vocabulary detectors place boxes on most objects but label them according to the wording of the class list; given the true box, each falls back to one default answer. The VLMs name objects better when given the box but find fewer of them. Output decoding and the use of AP for outputs without confidence scores change scores and rankings as much as the choice of model, and prompt wording decides whether a VLM answers at all. Comparisons of zero-shot perception for robots should therefore report per-object and matched-budget measures alongside AP.
 
+\bibliography{references}
+
 \appendix
 
 \section{VLM Prompt}
@@ -183,14 +186,14 @@ The VLMs receive the image and the following text, with the coordinate phrase ``
 Detect every sea cucumber, sea urchin, scallop, starfish in this underwater image. Answer with JSON only: a list of objects, each \{"bbox\_2d": [x1, y1, x2, y2], "label": one of [sea cucumber, sea urchin, scallop, starfish]\}, with coordinates $\langle$coordinate phrase$\rangle$. Answer [] if there are none.
 \end{quote}
 
-\begin{figure*}[t]
+\begin{figure}[!ht]
 \centering
-\includegraphics[width=\textwidth]{fig_vlm_failures.pdf}
-\caption{Two VLM failure modes on DUO test images. Top: with the default prompt, Qwen2.5-VL-7B answers with an empty list; without the sentence ``Answer [] if there are none'' it returns boxes. Bottom: Qwen3-VL-8B keeps listing boxes, here a column of repeated sea-cucumber boxes, until its reply is cut off at the token limit. Boxes are drawn in the color of their class. Images from DUO \citep{liu2021duo}, CC BY 4.0.}
+\includegraphics[width=\columnwidth]{fig_vlm_failures.pdf}
+\caption{Two VLM failure modes on DUO test images. (a, b) With the default prompt, Qwen2.5-VL-7B answers with an empty list for an image with 12 objects; without the sentence ``Answer [] if there are none'' it returns boxes. (c, d) Qwen3-VL-8B keeps listing boxes, here a column of repeated sea-cucumber boxes, until its reply is cut off at the token limit. Boxes are drawn in the color of their class. Images from DUO \citep{liu2021duo}, CC BY 4.0.}
 \label{fig:vlm}
-\end{figure*}
+\end{figure}
 
-For the prompt ablation the last sentence is removed. Figure~\ref{fig:vlm} shows an empty answer and a cut-off reply. Box labels are matched to the four class names. Qwen3-VL-8B returned an empty list on \nEmptyQwenVL{} of the first 100 images and a reply cut off at the token limit on \nCutQwenVL; boxes from cut-off replies are kept up to the cut, and \nOutsideQwenVL{} boxes that lay outside the image, all from cut-off replies, were clipped.
+For the prompt ablation the last sentence is removed (Figure~\ref{fig:vlm}). Box labels are matched to the four class names. Qwen3-VL-8B returned an empty list on \nEmptyQwenVL{} of the first 100 images and a reply cut off at the token limit on \nCutQwenVL; boxes from cut-off replies are kept up to the cut, and \nOutsideQwenVL{} boxes that lay outside the image, all from cut-off replies, were clipped.
 
 \section{Sensitivity of the Per-Object Measures}
 \label{app:sensitivity}
@@ -204,19 +207,14 @@ Table~\ref{tab:sensitivity} varies the number of boxes considered per image and 
 
 \input{tab_crops}
 
-Table~\ref{tab:crops} gives the per-class accuracies of the box-crop test with intervals, including the Latin class names for the two open-vocabulary detectors.
+Table~\ref{tab:crops} gives the per-class accuracies, including the Latin class names.
 
 \section{TIDE Error Breakdown}
 \label{app:tide}
 
 \input{tab_tide}
 
-Table~\ref{tab:tide} reports TIDE's main error types. For the fine-tuned detectors, boxes on background (Bkg) cost the most. For the open-vocabulary detectors, wrong classes (Cls) cost the most, consistent with Section~\ref{sec:misnamed}. For Qwen2.5-VL-7B, missed objects (Miss) dominate, consistent with its frequent empty answers.
+In Table~\ref{tab:tide}, boxes on background (Bkg) cost the fine-tuned detectors most, wrong classes (Cls) the open-vocabulary detectors, and missed objects (Miss) Qwen2.5-VL-7B.
 
-\section{COCO Rank and DUO Rank}
-
-Across the six fine-tuned architectures, the Spearman correlation between published COCO AP and DUO test AP is \rhoCocoDuo{} \rhoCocoDuoCI{} (bootstrap over test images). COCO rank is therefore a reasonable but imperfect guide to rank on DUO; RT-DETR-L, second on COCO, is fourth on DUO.
-
-\bibliography{references}
 
 \end{document}

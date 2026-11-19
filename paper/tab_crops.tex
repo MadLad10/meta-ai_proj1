@@ -1,19 +1,20 @@
-\begin{table*}[t]
+\begin{table}[!ht]
 \centering
 \small
-\begin{tabular}{llcccccc}
+\setlength{\tabcolsep}{2.2pt}
+\begin{tabular}{lcccccc}
 \toprule
-Model & Names & Sea cuc. & Sea urchin & Scallop & Starfish & Mean (95\% CI) & Most frequent answer \\
+Model & Cuc. & Urch. & Scal. & Star. & Mean & Most frequent \\
 \midrule
-Grounding DINO & common & 0 [0, 0] & 98 [96, 99] & 3 [1, 5] & 10 [7, 14] & 28 [27, 29] & sea urchin (95\%) \\
- & Latin & 88 [84, 91] & 5 [2, 7] & 7 [4, 11] & 13 [9, 17] & 28 [26, 30] & holothurian (88\%) \\
-OWLv2 & common & 2 [0, 3] & 8 [5, 11] & 1 [0, 3] & 92 [88, 95] & 26 [25, 27] & starfish (91\%) \\
- & Latin & 25 [20, 30] & 7 [4, 10] & 3 [1, 5] & 76 [71, 80] & 28 [26, 30] & starfish (65\%) \\
-Qwen2.5-VL-3B & common & 47 [41, 52] & 69 [64, 74] & 6 [3, 8] & 9 [6, 12] & 33 [31, 35] & sea urchin (57\%) \\
-Qwen2.5-VL-7B & common & 62 [57, 67] & 40 [34, 45] & 16 [12, 21] & 13 [9, 17] & 33 [30, 35] & sea cucumber (59\%) \\
-Qwen3-VL-8B & common & 71 [65, 76] & 50 [44, 56] & 12 [8, 17] & 58 [52, 63] & 48 [45, 50] & sea cucumber (52\%) \\
+Grounding DINO & 0 & 98 & 3 & 10 & 28 & urch. 95\% \\
+\quad Latin names & 88 & 5 & 7 & 13 & 28 & holot. 88\% \\
+OWLv2 & 2 & 8 & 1 & 92 & 26 & star. 91\% \\
+\quad Latin names & 25 & 7 & 3 & 76 & 28 & star. 65\% \\
+Qwen2.5-VL-3B & 47 & 69 & 6 & 9 & 33 & urch. 57\% \\
+Qwen2.5-VL-7B & 62 & 40 & 16 & 13 & 33 & cuc. 59\% \\
+Qwen3-VL-8B & 71 & 50 & 12 & 58 & 48 & cuc. 52\% \\
 \bottomrule
 \end{tabular}
-\caption{Box-crop naming test: \% of crops named correctly per class, with 95\% bootstrap intervals over crops. Chance is 25\%. The last column gives the answer a model gives most often, over all crops, and its share.}
+\caption{Box-crop naming test: \% of crops named correctly per class (cucumber, urchin, scallop, starfish) and the mean over classes; chance is 25\%. Per-class 95\% bootstrap intervals are within $\pm$6 points, intervals of the mean within $\pm$3. The last column gives the answer a model gives most often over all crops, and its share (holot.\ = holothurian).}
 \label{tab:crops}
-\end{table*}
+\end{table}

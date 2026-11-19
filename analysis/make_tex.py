@@ -208,17 +208,20 @@ t += ['\\midrule',
 (P / 'tab_budget.tex').write_text('\n'.join(t) + '\n')
 
 # ---- Appendix tables: sensitivity, TIDE, fine-tuned details
-t = ['\\begin{table*}[t]', '\\centering', '\\small', '\\begin{tabular}{llccc}', '\\toprule',
-     'Model & Setting & All found & All named & Sea cucumber found / named \\\\', '\\midrule']
+hw = []
+t = ['\\begin{table}[!ht]', '\\centering', '\\small', '\\setlength{\\tabcolsep}{2.8pt}', '\\begin{tabular}{llcccc}', '\\toprule',
+     ' & & \\multicolumn{2}{c}{All objects} & \\multicolumn{2}{c}{Sea cucumbers} \\\\', '\\cmidrule(lr){3-4}\\cmidrule(lr){5-6}',
+     'Model & Boxes, IoU & Found & Named & Found & Named \\\\', '\\midrule']
 for name, k in [('YOLO11n', 'yolo11n'), ('Grounding DINO', 'gdino'), ('OWLv2', 'owlv2')]:
-    for st, sl in [('top100_iou50', 'top 100, IoU 0.5'), ('top10_iou50', 'top 10, IoU 0.5'), ('top100_iou70', 'top 100, IoU 0.7')]:
+    for st, sl in [('top100_iou50', '100, 0.5'), ('top10_iou50', '10, 0.5'), ('top100_iou70', '100, 0.7')]:
         a = fn[k][st]['all']; h = fn[k][st][HOLO]
-        t.append(f"{name if st == 'top100_iou50' else ''} & {sl} & {pct(a['found'])} {pci(a['found_ci'])} & {pct(a['named'])} {pci(a['named_ci'])} & {pct(h['found'])} / {pct(h['named'])} \\\\")
-t += ['\\bottomrule', '\\end{tabular}', '\\caption{Sensitivity of the found and named shares (\\%, 95\\% bootstrap intervals) to the number of boxes '
-      'considered per image and to the IoU threshold. Full test set.}', '\\label{tab:sensitivity}', '\\end{table*}']
+        hw += [(a[q + '_ci'][1] - a[q + '_ci'][0]) / 2 for q in ('found', 'named')] + [(h[q + '_ci'][1] - h[q + '_ci'][0]) / 2 for q in ('found', 'named')]
+        t.append(f"{name if st == 'top100_iou50' else ''} & {sl} & {pct(a['found'])} & {pct(a['named'])} & {pct(h['found'])} & {pct(h['named'])} \\\\")
+t += ['\\bottomrule', '\\end{tabular}', '\\caption{Found and named shares (\\%, full test set) when only the 10 highest-scoring boxes per image count, '
+      f'or with IoU $\\geq$ 0.7. All 95\\% bootstrap intervals are within $\\pm${100 * max(hw):.0f} percentage points.}}', '\\label{tab:sensitivity}', '\\end{table}']
 (P / 'tab_sensitivity.tex').write_text('\n'.join(t) + '\n')
 
-t = ['\\begin{table}[h]', '\\centering', '\\small', '\\setlength{\\tabcolsep}{3.5pt}', '\\begin{tabular}{lcccccc}', '\\toprule',
+t = ['\\begin{table}[!ht]', '\\centering', '\\small', '\\setlength{\\tabcolsep}{3.5pt}', '\\begin{tabular}{lcccccc}', '\\toprule',
      'Model & Cls & Loc & Both & Dupe & Bkg & Miss \\\\', '\\midrule']
 for name, k in [('YOLOv8n', 'yolov8n'), ('YOLO11n', 'yolo11n'), ('YOLO11s', 'yolo11s'), ('YOLO11m', 'yolo11m'), ('YOLO11l', 'yolo11l'), ('RT-DETR-L', 'rtdetr-l'),
                 ('Grounding DINO', 'gdino'), ('OWLv2', 'owlv2'), ('Qwen2.5-VL-7B', 'qwen25_7b'), ('Qwen3-VL-8B$^\\dagger$', 'qwen3_8b_100')]:
@@ -262,15 +265,18 @@ for lab, nm in [('Qwen3-VL-8B minus Grounding DINO', 'GD'), ('Qwen3-VL-8B minus 
     d = CR['differences'][lab]; mac('cropd' + nm, f"{100 * d['diff']:+.0f}"); mac('cropdci' + nm, pci(d['ci']))
 mac('msYoloMin', f"{min(v['wall_ms'] for v in TIME.values()):.0f}"); mac('msYoloMax', f"{max(v['wall_ms'] for v in TIME.values()):.0f}")
 NAMEC = [('holothurian', 'Sea cuc.'), ('echinus', 'Sea urchin'), ('scallop', 'Scallop'), ('starfish', 'Starfish')]
-t = ['\\begin{table*}[t]', '\\centering', '\\small', '\\begin{tabular}{llcccccc}', '\\toprule',
-     'Model & Names & ' + ' & '.join(n for _, n in NAMEC) + ' & Mean (95\\% CI) & Most frequent answer \\\\', '\\midrule']
-for name, names, k in [('Grounding DINO', 'common', 'gdino'), ('', 'Latin', 'gdino_latin'), ('OWLv2', 'common', 'owlv2'), ('', 'Latin', 'owlv2_latin'),
-                       ('Qwen2.5-VL-3B', 'common', 'qwen25_3b'), ('Qwen2.5-VL-7B', 'common', 'qwen25_7b'), ('Qwen3-VL-8B', 'common', 'qwen3_8b')]:
-    m = CM[k]; mc = m['most_common_label']; lab = mc if names == 'Latin' and mc in ('holothurian', 'echinus') else dict(holothurian='sea cucumber', echinus='sea urchin', scallop='scallop', starfish='starfish')[mc]
-    t.append(f"{name} & {names} & " + ' & '.join(f"{pct(m['per_class'][c]['acc'])} {pci(m['per_class'][c]['ci'])}" for c, _ in NAMEC) +
-             f" & {pct(m['mean_class_accuracy'])} {pci(m['mean_ci'])} & {lab} ({pct(m['share_most_common'])}\\%) \\\\")
-t += ['\\bottomrule', '\\end{tabular}', '\\caption{Box-crop naming test: \\% of crops named correctly per class, with 95\\% bootstrap intervals over crops. '
-      'Chance is 25\\%. The last column gives the answer a model gives most often, over all crops, and its share.}', '\\label{tab:crops}', '\\end{table*}']
+chw = []
+t = ['\\begin{table}[!ht]', '\\centering', '\\small', '\\setlength{\\tabcolsep}{2.2pt}', '\\begin{tabular}{lcccccc}', '\\toprule',
+     'Model & Cuc. & Urch. & Scal. & Star. & Mean & Most frequent \\\\', '\\midrule']
+for name, k in [('Grounding DINO', 'gdino'), ('\\quad Latin names', 'gdino_latin'), ('OWLv2', 'owlv2'), ('\\quad Latin names', 'owlv2_latin'),
+                ('Qwen2.5-VL-3B', 'qwen25_3b'), ('Qwen2.5-VL-7B', 'qwen25_7b'), ('Qwen3-VL-8B', 'qwen3_8b')]:
+    m = CM[k]; mc = m['most_common_label']; lab = mc[:5] + '.' if 'Latin' in name and mc in ('holothurian', 'echinus') else dict(holothurian='cuc.', echinus='urch.', scallop='scal.', starfish='star.')[mc]
+    chw += [(m['per_class'][c]['ci'][1] - m['per_class'][c]['ci'][0]) / 2 for c, _ in NAMEC]
+    t.append(f"{name} & " + ' & '.join(pct(m['per_class'][c]['acc']) for c, _ in NAMEC) +
+             f" & {pct(m['mean_class_accuracy'])} & {lab} {pct(m['share_most_common'])}\\% \\\\")
+t += ['\\bottomrule', '\\end{tabular}', '\\caption{Box-crop naming test: \\% of crops named correctly per class (cucumber, urchin, scallop, starfish) and the mean over classes; chance is 25\\%. '
+      f'Per-class 95\\% bootstrap intervals are within $\\pm${100 * max(chw):.0f} points, intervals of the mean within $\\pm${100 * max((CM[k]["mean_ci"][1] - CM[k]["mean_ci"][0]) / 2 for k in CM):.0f}. '
+      'The last column gives the answer a model gives most often over all crops, and its share (holot.\\ = holothurian).}', '\\label{tab:crops}', '\\end{table}']
 (P / 'tab_crops.tex').write_text('\n'.join(t) + '\n')
 (P / 'numbers.tex').write_text('% Generated by analysis/make_tex.py; do not edit.\n' +
                                ''.join(f'\\newcommand{{\\{k}}}{{{v}}}\n' for k, v in macros.items()))
