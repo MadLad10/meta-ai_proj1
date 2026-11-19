@@ -239,7 +239,7 @@ Without the sentence, replies were cut off at the 1,536-token limit on 4 of 100 
 | Default (up to 1280×28×28 pixels) | 0.013 | 0.024 | 498 | 1,005 of 1,111 |
 | Low (up to 640×28×28 pixels) | 0.007 | 0.013 | 653 | 1,017 of 1,111 |
 
-At low resolution, 6 replies were cut off and 17 boxes fell outside the image (dropped). Fewer pixels give slightly more boxes but halve the score. Both numbers are tiny, so this is weak evidence.
+At low resolution, 6 replies were cut off and 17 boxes fell outside the image (dropped). The difference is **not significant**: default minus low is +0.005 AP, 95% bootstrap interval [−0.002, +0.009] (`analysis/assess.json`). Image resolution does not explain Qwen2.5-VL's failure.
 
 **Qwen3-VL-8B reply behaviour (default prompt, first 100 images):**
 - 17 empty answers;

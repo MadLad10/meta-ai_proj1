@@ -1,5 +1,5 @@
 # Benchmark data, model weights and full run outputs stay out of git
-gpu_job/outputs/
+gpu_job/outputs
 gpu_job/duo_raw/
 gpu_job/duo_yolo/
 gpu_job/ruod_raw/
