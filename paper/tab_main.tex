@@ -1,0 +1,31 @@
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4.5pt}
+\begin{tabular}{llccccccc}
+\toprule
+ & & \multicolumn{5}{c}{Full test set (\nTestImages{} images)} & First 100 images & \\
+\cmidrule(lr){3-7}\cmidrule(lr){8-8}
+Model & COCO AP & AP (95\% CI) & AP$_{50}$ & AR$_{100}$ & Merged AP & Sea cuc.\ AP & AP (95\% CI) & ms/image \\
+\midrule
+\multicolumn{9}{l}{\textit{Fine-tuned on DUO}} \\
+YOLOv8n & 37.3 & 0.624 [0.593, 0.655] & 0.824 & 0.741 & 0.700 & 0.608 & 0.606 [0.482, 0.669] & 10 \\
+YOLO11n & 39.5 & 0.625 [0.595, 0.652] & 0.820 & 0.747 & 0.705 & 0.606 & 0.628 [0.508, 0.692] & 11 \\
+YOLO11s & 47.0 & 0.674 [0.645, 0.701] & 0.859 & 0.770 & 0.730 & 0.669 & 0.656 [0.526, 0.707] & 15 \\
+YOLO11m & 51.5 & 0.685 [0.654, 0.712] & 0.857 & 0.780 & 0.742 & 0.680 & 0.684 [0.541, 0.735] & 13 \\
+YOLO11l & 53.4 & 0.690 [0.662, 0.716] & 0.863 & 0.780 & 0.744 & 0.690 & 0.691 [0.556, 0.739] & 15 \\
+RT-DETR-L & 53.0 & 0.669 [0.639, 0.695] & 0.849 & 0.774 & 0.718 & 0.666 & 0.692 [0.557, 0.742] & 21 \\
+\midrule
+\multicolumn{9}{l}{\textit{Zero-shot detectors}} \\
+Grounding DINO & -- & 0.090 [0.067, 0.114] & 0.151 & 0.360 & 0.136 & 0.004 & 0.078 [0.048, 0.138] & 252$^\ddagger$ \\
+OWLv2 & -- & 0.099 [0.088, 0.111] & 0.183 & 0.190 & 0.151 & 0.001 & 0.107 [0.078, 0.140] & 328 \\
+\midrule
+\multicolumn{9}{l}{\textit{Zero-shot VLMs}} \\
+Qwen2.5-VL-3B & -- & 0.000 [0.000, 0.000] & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 [0.000, 0.000] & 200 \\
+Qwen2.5-VL-7B & -- & 0.013 [0.009, 0.018] & 0.024 & 0.021 & 0.016 & 0.004 & 0.018 [0.006, 0.034] & 632 \\
+Qwen3-VL-8B & -- & \multicolumn{5}{c}{not run on the full test set} & 0.054 [0.043, 0.087] & 15{,}918 \\
+\bottomrule
+\end{tabular}
+\caption{Detection results on the DUO test set (COCO protocol, pycocotools). Intervals are 95\% paired bootstrap intervals over test images. COCO AP is the published value for the fine-tuned architectures (Ultralytics). Merged AP treats all four classes as one, so a box counts regardless of its label. Qwen3-VL-8B was run only on the first 100 test images; the last column compares all models on those images. VLM boxes carry no confidence score and are all scored 1.0. Time per image on one RTX 5090: for the fine-tuned detectors, the median over 200 test images processed one at a time on an idle GPU, including pre- and post-processing; for the zero-shot models, wall-clock time over the whole run, including image loading. $^\ddagger$Grounding DINO shared the GPU with another job, so its time is an upper bound. Qwen2.5-VL is fast because it mostly returns an empty answer.}
+\label{tab:main}
+\end{table*}

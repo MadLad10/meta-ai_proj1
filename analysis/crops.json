@@ -1,0 +1,517 @@
+{
+ "crops": 1117,
+ "per_class_n": {
+  "holothurian": 300,
+  "echinus": 300,
+  "scallop": 217,
+  "starfish": 300
+ },
+ "models": {
+  "gdino": {
+   "mean_class_accuracy": 0.2769124423963134,
+   "mean_ci": [
+    0.26668673195084486,
+    0.2869423003072197
+   ],
+   "per_class": {
+    "holothurian": {
+     "acc": 0.0,
+     "ci": [
+      0.0,
+      0.0
+     ]
+    },
+    "echinus": {
+     "acc": 0.98,
+     "ci": [
+      0.96,
+      0.9933333333333333
+     ]
+    },
+    "scallop": {
+     "acc": 0.027649769585253458,
+     "ci": [
+      0.009216589861751152,
+      0.05311059907834091
+     ]
+    },
+    "starfish": {
+     "acc": 0.1,
+     "ci": [
+      0.06666666666666667,
+      0.13666666666666666
+     ]
+    }
+   },
+   "confusion": {
+    "holothurian": {
+     "holothurian": 0,
+     "echinus": 291,
+     "scallop": 0,
+     "starfish": 9,
+     "None": 0
+    },
+    "echinus": {
+     "holothurian": 1,
+     "echinus": 294,
+     "scallop": 2,
+     "starfish": 3,
+     "None": 0
+    },
+    "scallop": {
+     "holothurian": 0,
+     "echinus": 207,
+     "scallop": 6,
+     "starfish": 4,
+     "None": 0
+    },
+    "starfish": {
+     "holothurian": 0,
+     "echinus": 270,
+     "scallop": 0,
+     "starfish": 30,
+     "None": 0
+    }
+   },
+   "most_common_label": "echinus",
+   "share_most_common": 0.9507609668755596
+  },
+  "gdino_latin": {
+   "mean_class_accuracy": 0.2809331797235023,
+   "mean_ci": [
+    0.2644562211981567,
+    0.2971297043010752
+   ],
+   "per_class": {
+    "holothurian": {
+     "acc": 0.8766666666666667,
+     "ci": [
+      0.8382499999999999,
+      0.91175
+     ]
+    },
+    "echinus": {
+     "acc": 0.04666666666666667,
+     "ci": [
+      0.024916666666666674,
+      0.07333333333333333
+     ]
+    },
+    "scallop": {
+     "acc": 0.07373271889400922,
+     "ci": [
+      0.041474654377880185,
+      0.10599078341013825
+     ]
+    },
+    "starfish": {
+     "acc": 0.12666666666666668,
+     "ci": [
+      0.09,
+      0.16666666666666666
+     ]
+    }
+   },
+   "confusion": {
+    "holothurian": {
+     "holothurian": 263,
+     "echinus": 11,
+     "scallop": 1,
+     "starfish": 25,
+     "None": 0
+    },
+    "echinus": {
+     "holothurian": 274,
+     "echinus": 14,
+     "scallop": 3,
+     "starfish": 9,
+     "None": 0
+    },
+    "scallop": {
+     "holothurian": 190,
+     "echinus": 1,
+     "scallop": 16,
+     "starfish": 10,
+     "None": 0
+    },
+    "starfish": {
+     "holothurian": 252,
+     "echinus": 10,
+     "scallop": 0,
+     "starfish": 38,
+     "None": 0
+    }
+   },
+   "most_common_label": "holothurian",
+   "share_most_common": 0.8764547896150403
+  },
+  "owlv2": {
+   "mean_class_accuracy": 0.25678955453149,
+   "mean_ci": [
+    0.24512288786482334,
+    0.2690353302611367
+   ],
+   "per_class": {
+    "holothurian": {
+     "acc": 0.016666666666666666,
+     "ci": [
+      0.0033333333333333335,
+      0.031749999999999924
+     ]
+    },
+    "echinus": {
+     "acc": 0.08,
+     "ci": [
+      0.05158333333333334,
+      0.11333333333333333
+     ]
+    },
+    "scallop": {
+     "acc": 0.013824884792626729,
+     "ci": [
+      0.0,
+      0.03225806451612903
+     ]
+    },
+    "starfish": {
+     "acc": 0.9166666666666666,
+     "ci": [
+      0.8849166666666667,
+      0.9466666666666667
+     ]
+    }
+   },
+   "confusion": {
+    "holothurian": {
+     "holothurian": 5,
+     "echinus": 4,
+     "scallop": 0,
+     "starfish": 291,
+     "None": 0
+    },
+    "echinus": {
+     "holothurian": 4,
+     "echinus": 24,
+     "scallop": 0,
+     "starfish": 272,
+     "None": 0
+    },
+    "scallop": {
+     "holothurian": 18,
+     "echinus": 19,
+     "scallop": 3,
+     "starfish": 177,
+     "None": 0
+    },
+    "starfish": {
+     "holothurian": 14,
+     "echinus": 11,
+     "scallop": 0,
+     "starfish": 275,
+     "None": 0
+    }
+   },
+   "most_common_label": "starfish",
+   "share_most_common": 0.9086839749328559
+  },
+  "owlv2_latin": {
+   "mean_class_accuracy": 0.2769124423963134,
+   "mean_ci": [
+    0.2577159178187404,
+    0.2958631912442396
+   ],
+   "per_class": {
+    "holothurian": {
+     "acc": 0.25333333333333335,
+     "ci": [
+      0.20491666666666666,
+      0.3
+     ]
+    },
+    "echinus": {
+     "acc": 0.07,
+     "ci": [
+      0.04158333333333334,
+      0.10174999999999992
+     ]
+    },
+    "scallop": {
+     "acc": 0.027649769585253458,
+     "ci": [
+      0.009216589861751152,
+      0.05069124423963134
+     ]
+    },
+    "starfish": {
+     "acc": 0.7566666666666667,
+     "ci": [
+      0.71,
+      0.8033333333333333
+     ]
+    }
+   },
+   "confusion": {
+    "holothurian": {
+     "holothurian": 76,
+     "echinus": 3,
+     "scallop": 0,
+     "starfish": 221,
+     "None": 0
+    },
+    "echinus": {
+     "holothurian": 139,
+     "echinus": 21,
+     "scallop": 0,
+     "starfish": 140,
+     "None": 0
+    },
+    "scallop": {
+     "holothurian": 68,
+     "echinus": 8,
+     "scallop": 6,
+     "starfish": 135,
+     "None": 0
+    },
+    "starfish": {
+     "holothurian": 69,
+     "echinus": 4,
+     "scallop": 0,
+     "starfish": 227,
+     "None": 0
+    }
+   },
+   "most_common_label": "starfish",
+   "share_most_common": 0.6472694717994628
+  },
+  "qwen25_3b": {
+   "mean_class_accuracy": 0.32549155145929337,
+   "mean_ci": [
+    0.3059179147465438,
+    0.34730270737327185
+   ],
+   "per_class": {
+    "holothurian": {
+     "acc": 0.47,
+     "ci": [
+      0.41333333333333333,
+      0.5233333333333333
+     ]
+    },
+    "echinus": {
+     "acc": 0.69,
+     "ci": [
+      0.64,
+      0.74
+     ]
+    },
+    "scallop": {
+     "acc": 0.055299539170506916,
+     "ci": [
+      0.027649769585253458,
+      0.08294930875576037
+     ]
+    },
+    "starfish": {
+     "acc": 0.08666666666666667,
+     "ci": [
+      0.056666666666666664,
+      0.11666666666666667
+     ]
+    }
+   },
+   "confusion": {
+    "holothurian": {
+     "holothurian": 141,
+     "echinus": 159,
+     "scallop": 0,
+     "starfish": 0,
+     "None": 0
+    },
+    "echinus": {
+     "holothurian": 93,
+     "echinus": 207,
+     "scallop": 0,
+     "starfish": 0,
+     "None": 0
+    },
+    "scallop": {
+     "holothurian": 111,
+     "echinus": 94,
+     "scallop": 12,
+     "starfish": 0,
+     "None": 0
+    },
+    "starfish": {
+     "holothurian": 96,
+     "echinus": 177,
+     "scallop": 1,
+     "starfish": 26,
+     "None": 0
+    }
+   },
+   "most_common_label": "echinus",
+   "share_most_common": 0.5702775290957923
+  },
+  "qwen25_7b": {
+   "mean_class_accuracy": 0.325837173579109,
+   "mean_ci": [
+    0.30359005376344084,
+    0.34948079877112137
+   ],
+   "per_class": {
+    "holothurian": {
+     "acc": 0.62,
+     "ci": [
+      0.57,
+      0.6733333333333333
+     ]
+    },
+    "echinus": {
+     "acc": 0.39666666666666667,
+     "ci": [
+      0.33825,
+      0.4533333333333333
+     ]
+    },
+    "scallop": {
+     "acc": 0.15668202764976957,
+     "ci": [
+      0.1152073732718894,
+      0.2073732718894009
+     ]
+    },
+    "starfish": {
+     "acc": 0.13,
+     "ci": [
+      0.09158333333333334,
+      0.17333333333333334
+     ]
+    }
+   },
+   "confusion": {
+    "holothurian": {
+     "holothurian": 186,
+     "echinus": 110,
+     "scallop": 1,
+     "starfish": 3,
+     "None": 0
+    },
+    "echinus": {
+     "holothurian": 181,
+     "echinus": 119,
+     "scallop": 0,
+     "starfish": 0,
+     "None": 0
+    },
+    "scallop": {
+     "holothurian": 108,
+     "echinus": 75,
+     "scallop": 34,
+     "starfish": 0,
+     "None": 0
+    },
+    "starfish": {
+     "holothurian": 187,
+     "echinus": 73,
+     "scallop": 1,
+     "starfish": 39,
+     "None": 0
+    }
+   },
+   "most_common_label": "holothurian",
+   "share_most_common": 0.5926589077887198
+  },
+  "qwen3_8b": {
+   "mean_class_accuracy": 0.4777726574500768,
+   "mean_ci": [
+    0.45223185483870965,
+    0.5037288786482336
+   ],
+   "per_class": {
+    "holothurian": {
+     "acc": 0.71,
+     "ci": [
+      0.6533333333333333,
+      0.76
+     ]
+    },
+    "echinus": {
+     "acc": 0.5,
+     "ci": [
+      0.43983333333333335,
+      0.5584166666666666
+     ]
+    },
+    "scallop": {
+     "acc": 0.12442396313364056,
+     "ci": [
+      0.07834101382488479,
+      0.16831797235023033
+     ]
+    },
+    "starfish": {
+     "acc": 0.5766666666666667,
+     "ci": [
+      0.51825,
+      0.6333333333333333
+     ]
+    }
+   },
+   "confusion": {
+    "holothurian": {
+     "holothurian": 213,
+     "echinus": 66,
+     "scallop": 1,
+     "starfish": 20,
+     "None": 0
+    },
+    "echinus": {
+     "holothurian": 149,
+     "echinus": 150,
+     "scallop": 0,
+     "starfish": 1,
+     "None": 0
+    },
+    "scallop": {
+     "holothurian": 109,
+     "echinus": 66,
+     "scallop": 27,
+     "starfish": 15,
+     "None": 0
+    },
+    "starfish": {
+     "holothurian": 107,
+     "echinus": 20,
+     "scallop": 0,
+     "starfish": 173,
+     "None": 0
+    }
+   },
+   "most_common_label": "holothurian",
+   "share_most_common": 0.5174574753804835
+  }
+ },
+ "differences": {
+  "Qwen3-VL-8B minus Grounding DINO": {
+   "diff": 0.2008602150537634,
+   "ci": [
+    0.1765323540706605,
+    0.22821495775729644
+   ]
+  },
+  "Qwen3-VL-8B minus OWLv2": {
+   "diff": 0.2209831029185868,
+   "ci": [
+    0.1933923771121352,
+    0.2509137864823348
+   ]
+  },
+  "Qwen3-VL-8B minus Qwen2.5-VL-7B": {
+   "diff": 0.15193548387096778,
+   "ci": [
+    0.12418970814132099,
+    0.17898905529953915
+   ]
+  }
+ }
+}
