@@ -74,13 +74,17 @@ DUO \citep{liu2021duo} contains 7,782 underwater images with the official split 
 YOLOv8n \citep{jocher2023yolov8}, YOLO11n/s/m/l \citep{jocher2024yolo11} and RT-DETR-L \citep{zhao2024rtdetr} start from COCO-pretrained weights and are trained with one recipe (Ultralytics 8.4.60): 640-pixel input, 40 epochs, batch size 8, seed 17. We hold out 10\% of the training split (667 images) to select the checkpoint. Training takes \trainMinMinutes--\trainMaxMinutes{} minutes per model on one RTX 5090 GPU. These detectors represent what a robot builder with labeled data would use.
 
 \paragraph{Zero-shot models.}
-We use Grounding DINO base \citep{liu2024grounding}, OWLv2 base \citep{minderer2023scaling}, Qwen2.5-VL-3B and -7B Instruct \citep{bai2025qwen25vl} and Qwen3-VL-8B Instruct \citep{bai2025qwen3vl}, run with Hugging Face Transformers 4.57.6 \citep{wolf2020transformers}. Grounding DINO receives the text prompt ``sea cucumber. sea urchin. scallop. starfish.''; OWLv2 receives one query per class, ``a photo of a $\langle$class$\rangle$''. The VLMs receive one prompt (Appendix~\ref{app:prompt}) that asks for a JSON list of boxes, each labeled with one of the four names, in pixel coordinates (Qwen2.5-VL) or on Qwen3-VL's 0--1000 grid, and ends with ``Answer [] if there are none.'' Decoding is greedy with at most 1,536 new tokens. Qwen3-VL-8B needs \secQwenVL{} seconds per image, against \secOWL{} for OWLv2, so within our compute budget it ran only on the first 100 test images; all models are also compared on these images.
+We use Grounding DINO base \citep{liu2024grounding}, OWLv2 base \citep{minderer2023scaling}, Qwen2.5-VL-3B and -7B Instruct \citep{bai2025qwen25vl} and Qwen3-VL-8B Instruct \citep{bai2025qwen3vl}, run with Hugging Face Transformers 4.57.6 \citep{wolf2020transformers}. Grounding DINO receives the text prompt ``sea cucumber. sea urchin. scallop. starfish.''; OWLv2 receives one query per class, ``a photo of a $\langle$class$\rangle$''. The VLMs receive the image and the prompt
+\begin{quote}\small
+Detect every sea cucumber, sea urchin, scallop, starfish in this underwater image. Answer with JSON only: a list of objects, each \{"bbox\_2d": [x1, y1, x2, y2], "label": one of [sea cucumber, sea urchin, scallop, starfish]\}, with coordinates $\langle$coordinate phrase$\rangle$. Answer [] if there are none.
+\end{quote}
+where the coordinate phrase is ``in pixel coordinates of the image'' for Qwen2.5-VL and ``on a 0-1000 grid of the image (0,0 top-left, 1000,1000 bottom-right)'' for Qwen3-VL. Decoding is greedy with at most 1,536 new tokens, and box labels are matched to the four class names. Qwen3-VL-8B needs \secQwenVL{} seconds per image, against \secOWL{} for OWLv2, so within our compute budget it ran only on the first 100 test images; all models are also compared on these images.
 
 \paragraph{Scoring.}
-We report COCO AP (IoU 0.50--0.95), AP$_{50}$ and recall with up to 100 boxes (AR$_{100}$), computed with pycocotools \citep{lin2014coco}. Fine-tuned detectors keep boxes with confidence $\geq$ 0.001 (up to 300 per image), open-vocabulary detectors boxes with confidence $\geq$ 0.01. Grounding DINO is scored as in its own COCO evaluation: the score of a class is the mean probability over the text tokens of its name, and the 300 highest-scoring (box, class) pairs per image are kept. VLM boxes carry no score, so all are scored 1.0; boxes extending beyond the image are clipped. Intervals are 95\% percentile intervals from 500 bootstrap resamples of the test images \citep{efron1994introduction}; for a difference, both models are scored on the same resamples.
+We report COCO AP (IoU 0.50--0.95), AP$_{50}$ and recall with up to 100 boxes (AR$_{100}$), computed with pycocotools \citep{lin2014coco}. Fine-tuned detectors keep boxes with confidence $\geq$ 0.001 (up to 300 per image), open-vocabulary detectors boxes with confidence $\geq$ 0.01. Grounding DINO is scored as in its own COCO evaluation: the score of a class is the mean probability over the text tokens of its name, and the 300 highest-scoring (box, class) pairs per image are kept. VLM boxes carry no score, so all are scored 1.0; boxes extending beyond the image are clipped. A VLM reply cut off at the token limit is kept up to the cut: Qwen3-VL-8B's reply was cut off on \nCutQwenVL{} of the first 100 images, and all \nOutsideQwenVL{} of its boxes that lay outside an image came from such replies. Intervals are 95\% percentile intervals from 500 bootstrap resamples of the test images \citep{efron1994introduction}; for a difference, both models are scored on the same resamples.
 
 \paragraph{Per-object measures.}
-An object is \emph{found} if at least one of the image's 100 highest-scoring boxes, of any class, overlaps it with IoU $\geq$ 0.5, and \emph{named} if at least one such box also carries the object's class. For each found object we record the class of the box with the highest IoU. These shares do not depend on how boxes are ranked within the 100; Appendix~\ref{app:sensitivity} varies the number of boxes and the IoU threshold. \emph{Merged AP} is AP after relabeling all objects and boxes as one class, keeping one box per location with its highest score; it measures detection regardless of the label.
+An object is \emph{found} if at least one of the image's 100 highest-scoring boxes, of any class, overlaps it with IoU $\geq$ 0.5, and \emph{named} if at least one such box also carries the object's class. For each found object we record the class of the box with the highest IoU. These shares do not depend on how boxes are ranked within the 100; Section~\ref{sec:misnamed} varies the number of boxes and the IoU threshold. \emph{Merged AP} is AP after relabeling all objects and boxes as one class, keeping one box per location with its highest score; it measures detection regardless of the label.
 
 \paragraph{Box-crop naming test.}
 To test naming when localization is given, each zero-shot model sees only the crop of one ground-truth box, enlarged by 10\% on each side and upscaled to at least 56 pixels on its shorter side, and must give its class. We use all \nCropsScallop{} test scallops and \nCropsOther{} randomly chosen test objects of each other class (seed 17), \nCrops{} crops in total. The VLMs are asked ``This underwater image shows one object. Which one is it: sea cucumber, sea urchin, scallop, starfish? Answer with one of these names only.''; the open-vocabulary detectors answer with the class of their highest-scoring box in the crop, scored as above. We report the share of crops named correctly per class and its mean over classes, for which chance is 25\%, with bootstrap intervals over crops.
@@ -106,6 +110,7 @@ Every zero-shot model is far below every fine-tuned detector (Table~\ref{tab:mai
 \end{figure}
 
 \input{tab_seacucumber}
+\input{tab_sensitivity}
 
 
 Figure~\ref{fig:examples} shows typical cases and Figure~\ref{fig:found} the totals. The fine-tuned YOLO11n finds \foundYoloN\% of all test objects and names \namedYoloN\%. Grounding DINO finds \foundGD\% \foundciGD{} and names \namedGD\% \namedciGD; OWLv2 finds \foundOWL\% \foundciOWL{} and names \namedOWL\% \namedciOWL. Both open-vocabulary detectors thus leave about a third of the objects without any overlapping box, and lose a further \lossNamingGD{} and \lossNamingOWL{} percentage points of objects to wrong labels. Because sea urchins make up \shareSeaUrchin\% of the objects and are mostly named correctly, these totals hide where naming fails.
@@ -117,7 +122,7 @@ Grounding DINO covers \scFoundGD\% \scFoundciGD{} of the sea cucumbers with a bo
 If the confusions came from unfamiliar common names, other names might remove them. They do not. With the Latin names ``holothurian'' and ``echinus'' in place of ``sea cucumber'' and ``sea urchin'', Grounding DINO names \scNamedGDlatin\% of the sea cucumbers correctly, but now labels \urchinAsHoloGDlatin{} sea urchins (\urchinAsHoloGDlatinPct\% of all sea urchins) as holothurians and \urchinAsScalGDlatin{} as scallops. Its AP does not improve: common minus Latin is \dLatinGd{} \dciLatinGd. OWLv2 names no sea cucumber correctly with the Latin name (\scNamedOWLlatin\%) and labels \scStarOWLlatin{} of them as starfish; its AP is slightly lower with Latin names (common minus Latin \dLatinOwl{} \dciLatinOwl). The class that a found object receives thus depends on the wording of the class list more than on the object's appearance.
 
 \paragraph{Naming explains much of the gap, not all of it.}
-Merged AP, which ignores labels, rises from \apGD{} to \mgGD{} \mgciGD{} for Grounding DINO and from \apOWL{} to \mgOWL{} \mgciOWL{} for OWLv2, an increase of about half. It remains far below the merged AP of the fine-tuned detectors (\mgYoloEightN--\mgYoloL). The open-vocabulary detectors therefore also box fewer objects than the fine-tuned ones and rank their correct boxes lower. The naming failure is robust to the measurement: with only the ten highest-scoring boxes per image, or with IoU $\geq$ 0.7, the share of sea cucumbers named correctly is \scNamedTopTenGD\% and \scNamedIouSeventyGD\% for Grounding DINO and \scNamedTopTenOWL\% and \scNamedIouSeventyOWL\% for OWLv2 (Appendix~\ref{app:sensitivity}).
+Merged AP, which ignores labels, rises from \apGD{} to \mgGD{} \mgciGD{} for Grounding DINO and from \apOWL{} to \mgOWL{} \mgciOWL{} for OWLv2, an increase of about half. It remains far below the merged AP of the fine-tuned detectors (\mgYoloEightN--\mgYoloL). The open-vocabulary detectors therefore also box fewer objects than the fine-tuned ones and rank their correct boxes lower. The naming failure is robust to the measurement: with only the ten highest-scoring boxes per image, or with IoU $\geq$ 0.7, the share of sea cucumbers named correctly is \scNamedTopTenGD\% and \scNamedIouSeventyGD\% for Grounding DINO and \scNamedTopTenOWL\% and \scNamedIouSeventyOWL\% for OWLv2 (Table~\ref{tab:sensitivity}). Fewer boxes or a stricter IoU lower all shares, but the gap between found and named sea cucumbers remains.
 
 \paragraph{The VLMs fail differently.}
 On the first 100 images, Qwen3-VL-8B finds \foundQwenVL\% of all objects and names \namedQwenVL\%. For sea cucumbers it finds only \scFoundQwenVL\% (of \scObjectsHundred), so for this class it mostly misses rather than misnames; Section~\ref{sec:crops} shows that it can name most of them when given the box. Qwen2.5-VL-7B finds \foundQSeven\% of all objects because it rarely returns any box (Section~\ref{sec:prompt}).
@@ -132,7 +137,9 @@ On the first 100 images, Qwen3-VL-8B finds \foundQwenVL\% of all objects and nam
 \subsection{Naming When the Box Is Given}
 \label{sec:crops}
 
-The box-crop test removes localization from the task (Figure~\ref{fig:crops}; Appendix Table~\ref{tab:crops}). Both open-vocabulary detectors are at chance: their mean accuracy over the four classes is \cropGD\% \cropciGD{} for Grounding DINO and \cropOWL\% \cropciOWL{} for OWLv2. Each falls back to one answer: Grounding DINO calls \cropDefaultGD\% of all crops ``sea urchin'' and names \cropCucGD\% of the sea cucumbers, and OWLv2 calls \cropDefaultOWL\% of all crops ``starfish''. These are the same confusions as in full images (Table~\ref{tab:seacucumber}), so the detectors' failure is in naming, not in finding. With Latin names, Grounding DINO's default answer switches to ``holothurian'' (\cropDefaultGDlatin\% of all crops): it now names \cropCucGDlatin\% of the sea cucumbers but only \cropUrchGDlatin\% of the sea urchins, and its mean accuracy stays at \cropGDlatin\% \cropciGDlatin. The answer follows the class names, not the object.
+\input{tab_crops}
+
+The box-crop test removes localization from the task (Figure~\ref{fig:crops} and Table~\ref{tab:crops}, which also gives the Latin-name results). Both open-vocabulary detectors are at chance: their mean accuracy over the four classes is \cropGD\% \cropciGD{} for Grounding DINO and \cropOWL\% \cropciOWL{} for OWLv2. Each falls back to one answer: Grounding DINO calls \cropDefaultGD\% of all crops ``sea urchin'' and names \cropCucGD\% of the sea cucumbers, and OWLv2 calls \cropDefaultOWL\% of all crops ``starfish''. These are the same confusions as in full images (Table~\ref{tab:seacucumber}), so the detectors' failure is in naming, not in finding. With Latin names, Grounding DINO's default answer switches to ``holothurian'' (\cropDefaultGDlatin\% of all crops): it now names \cropCucGDlatin\% of the sea cucumbers but only \cropUrchGDlatin\% of the sea urchins, and its mean accuracy stays at \cropGDlatin\% \cropciGDlatin. The answer follows the class names, not the object.
 
 The VLMs name objects better when the box is given. Qwen3-VL-8B reaches a mean accuracy of \cropQwenVL\% \cropciQwenVL, \cropdGD{} percentage points \cropdciGD{} above Grounding DINO and \cropdQSeven{} points \cropdciQSeven{} above Qwen2.5-VL-7B, and names \cropCucQwenVL\% of the sea cucumbers. In full images, however, it found only \scFoundQwenVL\% of the sea cucumbers (Section~\ref{sec:misnamed}). Its main failure is therefore finding the objects, the opposite of the open-vocabulary detectors. Scallops remain hard for every model: no model names more than \cropScalMax\% of them.
 
@@ -147,15 +154,24 @@ The VLMs name objects better when the box is given. Qwen3-VL-8B reaches a mean a
 The Hugging Face pipeline turns each Grounding DINO box into a text phrase, which must then be matched to a class name. On DUO, \pctUnmatchedText\% of these phrases (\nUnmatchedText{} of \nBoxesText) match no class, for example ``seachin'', a fragment of ``sea urchin'', or ``sea urchin starfish'', which names two classes, and such boxes are lost. Scoring the same forward pass as in Grounding DINO's own COCO evaluation, which reads class scores directly from the token outputs, raises AP from \apGDtext{} to \apGD{}, by \dDecoding{} \dciDecoding{} (Table~\ref{tab:choices}a). This exceeds the difference between OWLv2 and Grounding DINO, \dOwlGd{} \dciOwlGd, which is not significant. An evaluation that used the pipeline would conclude that OWLv2 is about twice as accurate as Grounding DINO.
 
 \paragraph{VLM outputs without confidence scores.}
-AP rewards ranking boxes by confidence. A VLM's boxes all score 1.0, so its AP reflects one operating point, whereas a detector's AP integrates over all thresholds. On the first 100 images, AP places Qwen3-VL-8B (\apHQwenVL) below OWLv2 (\apHOWL; difference \dOwlQwen{} \dciOwlQwen) and Grounding DINO (\apHGD; difference \dGdQwen{} \dciGdQwen, not significant). At a matched box budget the ranking changes (Table~\ref{tab:budget}). Qwen3-VL-8B is more precise and recalls more than Grounding DINO: the differences are \bdPGD{} \bdciPGD{} in precision and \bdRGD{} \bdciRGD{} in recall. Against OWLv2, the differences are \bdPOWL{} \bdciPOWL{} and \bdROWL{} \bdciROWL, both not significant. OWLv2 returned fewer distinct boxes than Qwen3-VL-8B on some images, so it used \bBoxesOWL{} rather than \bBoxesQwenVL{} boxes per image. The VLM's lower AP therefore reflects mainly its missing confidence ranking, not boxes or labels worse than those of the detectors. Under the same budget, the fine-tuned YOLO11n reaches a precision of \bPYoloN{} and a recall of \bRYoloN, so all zero-shot models remain far behind.
+AP rewards ranking boxes by confidence. A VLM's boxes all score 1.0, so its AP reflects one operating point, whereas a detector's AP integrates over all thresholds. On the first 100 images, AP places Qwen3-VL-8B (\apHQwenVL) below OWLv2 (\apHOWL; difference \dOwlQwen{} \dciOwlQwen) and Grounding DINO (\apHGD; difference \dGdQwen{} \dciGdQwen, not significant). At a matched box budget the ranking changes (Table~\ref{tab:budget}). Qwen3-VL-8B is more precise and recalls more than Grounding DINO: the differences are \bdPGD{} \bdciPGD{} in precision and \bdRGD{} \bdciRGD{} in recall. Against OWLv2, the differences are \bdPOWL{} \bdciPOWL{} and \bdROWL{} \bdciROWL, both not significant. OWLv2 returned fewer distinct boxes than Qwen3-VL-8B on some images, so it used \bBoxesOWL{} rather than \bBoxesQwenVL{} boxes per image. The VLM's lower AP therefore reflects mainly its missing confidence ranking, not boxes or labels worse than those of the detectors. Under the same budget, the fine-tuned YOLO11n reaches a precision of \bPYoloN{} and a recall of \bRYoloN, so all zero-shot models remain far behind. With the number of true objects in each image as the budget instead, precision and recall are \gtbPGD{} and \gtbRGD{} for Grounding DINO, \gtbPOWL{} and \gtbROWL{} for OWLv2, and \gtbPYoloN{} and \gtbRYoloN{} for YOLO11n.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\columnwidth]{fig_vlm_failures.pdf}
+\caption{Two VLM failure modes on DUO test images. (a, b) With the default prompt, Qwen2.5-VL-7B answers with an empty list for an image with 12 objects; without the sentence ``Answer [] if there are none'' it returns boxes. (c, d) Qwen3-VL-8B keeps listing boxes, here a column of repeated sea-cucumber boxes, until its reply is cut off at the token limit. Boxes are drawn in the color of their class. Images from DUO \citep{liu2021duo}, CC BY 4.0.}
+\label{fig:vlm}
+\end{figure}
 
 \paragraph{Prompt wording.}
 \label{sec:prompt}
-Our VLM prompt ends with ``Answer [] if there are none'', a common safeguard against invented boxes. With it, Qwen2.5-VL-3B returns an empty list on \nEmptyQThree{} of \nRepQThree{} test images and Qwen2.5-VL-7B on \nEmptyQSeven{} (\pctEmptyQSeven\%), although \nImagesWithObjects{} of the images contain objects. Without the sentence, run on the first 100 images, neither model returns an empty list. Yet AP barely moves (Table~\ref{tab:choices}b): the change is \dPromptSeven{} \dciPromptSeven{} for the 7B model and \dPromptThree{} \dciPromptThree{} for the 3B model. Without the sentence, \nCutQSevenNoEmpty{} of the 100 replies of the 7B model were cut off at the token limit by long lists of boxes. The sentence decides whether the model answers, not what it can see. Abstention rates of VLM detectors should therefore be reported together with the prompt that produced them.
+Our VLM prompt ends with ``Answer [] if there are none'', a common safeguard against invented boxes. With it, Qwen2.5-VL-3B returns an empty list on \nEmptyQThree{} of \nRepQThree{} test images and Qwen2.5-VL-7B on \nEmptyQSeven{} (\pctEmptyQSeven\%), although \nImagesWithObjects{} of the images contain objects. Without the sentence, run on the first 100 images, neither model returns an empty list. Yet AP barely moves (Table~\ref{tab:choices}b): the change is \dPromptSeven{} \dciPromptSeven{} for the 7B model and \dPromptThree{} \dciPromptThree{} for the 3B model. Without the sentence, \nCutQSevenNoEmpty{} of the 100 replies of the 7B model were cut off at the token limit by long lists of boxes. The sentence decides whether the model answers, not what it can see. Abstention rates of VLM detectors should therefore be reported together with the prompt that produced them. Figure~\ref{fig:vlm} shows an empty answer and, for Qwen3-VL-8B, a reply that lists boxes until it is cut off; such replies occurred on \nCutQwenVL{} of the first 100 images, and Qwen3-VL-8B returned an empty list on \nEmptyQwenVL.
 
 \subsection{What Does Not Explain the Gap}
 
-Halving the image-pixel budget of Qwen2.5-VL-7B changes its AP by \dResolution{} \dciResolution, which is not significant. Scale and model generation help: Qwen2.5-VL-7B exceeds the 3B model by \dSevenThree{} \dciSevenThree{}, and Qwen3-VL-8B exceeds Qwen2.5-VL-7B by \dQwenGen{} \dciQwenGen{} on the first 100 images. Even so, the best VLM reaches less than a tenth of the AP of any fine-tuned detector on the same images. The TIDE error breakdown \citep{bolya2020tide} in Appendix~\ref{app:tide} is consistent with these findings but less specific.
+\input{tab_tide}
+
+Halving the image-pixel budget of Qwen2.5-VL-7B changes its AP by \dResolution{} \dciResolution, which is not significant. Scale and model generation help: Qwen2.5-VL-7B exceeds the 3B model by \dSevenThree{} \dciSevenThree{}, and Qwen3-VL-8B exceeds Qwen2.5-VL-7B by \dQwenGen{} \dciQwenGen{} on the first 100 images. Even so, the best VLM reaches less than a tenth of the AP of any fine-tuned detector on the same images. The TIDE error breakdown \citep{bolya2020tide} in Table~\ref{tab:tide} is consistent with these findings but less specific: boxes on background (Bkg) cost the fine-tuned detectors most, wrong classes (Cls) the open-vocabulary detectors, and missed objects (Miss) Qwen2.5-VL-7B.
 
 \section{Discussion}
 \label{sec:discussion}
@@ -174,47 +190,5 @@ We study one benchmark, so we cannot show that the specific confusions generaliz
 On an established underwater robot-picking benchmark, zero-shot open-vocabulary detectors and VLMs fall far short of small fine-tuned detectors. The two kinds of model fail in different ways. The open-vocabulary detectors place boxes on most objects but label them according to the wording of the class list; given the true box, each falls back to one default answer. The VLMs name objects better when given the box but find fewer of them. Output decoding and the use of AP for outputs without confidence scores change scores and rankings as much as the choice of model, and prompt wording decides whether a VLM answers at all. Comparisons of zero-shot perception for robots should therefore report per-object and matched-budget measures alongside AP.
 
 \bibliography{references}
-
-\appendix
-
-\section{VLM Prompt}
-\label{app:prompt}
-
-The VLMs receive the image and the following text, with the coordinate phrase ``in pixel coordinates of the image'' for Qwen2.5-VL and ``on a 0-1000 grid of the image (0,0 top-left, 1000,1000 bottom-right)'' for Qwen3-VL:
-
-\begin{quote}\small
-Detect every sea cucumber, sea urchin, scallop, starfish in this underwater image. Answer with JSON only: a list of objects, each \{"bbox\_2d": [x1, y1, x2, y2], "label": one of [sea cucumber, sea urchin, scallop, starfish]\}, with coordinates $\langle$coordinate phrase$\rangle$. Answer [] if there are none.
-\end{quote}
-
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=\columnwidth]{fig_vlm_failures.pdf}
-\caption{Two VLM failure modes on DUO test images. (a, b) With the default prompt, Qwen2.5-VL-7B answers with an empty list for an image with 12 objects; without the sentence ``Answer [] if there are none'' it returns boxes. (c, d) Qwen3-VL-8B keeps listing boxes, here a column of repeated sea-cucumber boxes, until its reply is cut off at the token limit. Boxes are drawn in the color of their class. Images from DUO \citep{liu2021duo}, CC BY 4.0.}
-\label{fig:vlm}
-\end{figure}
-
-For the prompt ablation the last sentence is removed (Figure~\ref{fig:vlm}). Box labels are matched to the four class names. Qwen3-VL-8B returned an empty list on \nEmptyQwenVL{} of the first 100 images and a reply cut off at the token limit on \nCutQwenVL; boxes from cut-off replies are kept up to the cut, and \nOutsideQwenVL{} boxes that lay outside the image, all from cut-off replies, were clipped.
-
-\section{Sensitivity of the Per-Object Measures}
-\label{app:sensitivity}
-
-\input{tab_sensitivity}
-
-Table~\ref{tab:sensitivity} varies the number of boxes considered per image and the IoU threshold. Fewer boxes or a stricter IoU lower all shares, but the gap between found and named sea cucumbers persists for both open-vocabulary detectors. With the number of true objects in each image as the box budget (first 100 images), precision and recall are \gtbPGD{} and \gtbRGD{} for Grounding DINO, \gtbPOWL{} and \gtbROWL{} for OWLv2, and \gtbPYoloN{} and \gtbRYoloN{} for YOLO11n.
-
-\section{Box-Crop Naming Test}
-\label{app:crops}
-
-\input{tab_crops}
-
-Table~\ref{tab:crops} gives the per-class accuracies, including the Latin class names.
-
-\section{TIDE Error Breakdown}
-\label{app:tide}
-
-\input{tab_tide}
-
-In Table~\ref{tab:tide}, boxes on background (Bkg) cost the fine-tuned detectors most, wrong classes (Cls) the open-vocabulary detectors, and missed objects (Miss) Qwen2.5-VL-7B.
-
 
 \end{document}
