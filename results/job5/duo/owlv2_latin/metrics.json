@@ -1,0 +1,50 @@
+{
+ "AP": 0.0857095415835342,
+ "AP50": 0.15425535123599393,
+ "AP75": 0.087166007542786,
+ "AP_small": 0.02257706955589483,
+ "AP_medium": 0.08230404303312792,
+ "AP_large": 0.10260880850934471,
+ "AR1": 0.04582742155158511,
+ "AR10": 0.13735134447786015,
+ "AR100": 0.16736653541957036,
+ "AR_small": 0.0970854271356784,
+ "AR_medium": 0.16010476997836381,
+ "AR_large": 0.187263504380004,
+ "per_class_AP": {
+  "holothurian": 0.0,
+  "echinus": 0.08248833205765244,
+  "scallop": 0.09473192834197847,
+  "starfish": 0.1656179059345059
+ },
+ "tide_main_errors": {
+  "Cls": 27.986491642375828,
+  "Loc": 2.2653933995611446,
+  "Both": 0.2324775799112082,
+  "Dupe": 0.10947292045555024,
+  "Bkg": 4.261851253905917,
+  "Miss": 6.638640774412988
+ },
+ "tide_special_errors": {
+  "FalsePos": 12.71390003081861,
+  "FalseNeg": 29.624641248324696
+ },
+ "model": "owlv2",
+ "dataset": "duo",
+ "names": "latin",
+ "pixels": null,
+ "prompt": null,
+ "gdino_scoring": null,
+ "prompt_names": {
+  "holothurian": "holothurian",
+  "echinus": "echinus",
+  "scallop": "scallop",
+  "starfish": "starfish"
+ },
+ "images": 1111,
+ "detections": 125059,
+ "unmatched_labels": 0,
+ "boxes_outside_image": 189,
+ "min_score": 0.01,
+ "model_id": "google/owlv2-base-patch16-ensemble"
+}

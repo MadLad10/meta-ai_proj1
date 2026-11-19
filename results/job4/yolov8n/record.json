@@ -1,0 +1,25 @@
+{
+ "name": "yolov8n",
+ "base": "yolov8n.pt",
+ "recipe": {
+  "imgsz": 640,
+  "epochs": 40,
+  "batch": 8,
+  "workers": 4,
+  "seed": 17,
+  "deterministic": true,
+  "patience": 40,
+  "cos_lr": false,
+  "verbose": false,
+  "device": 0
+ },
+ "wall_s": 1640.4689999999246,
+ "best_sha256": "d2797e66b0b4cd906c4ac2f7d025897256ef17405fba624522b7caddb5aac19b",
+ "env": {
+  "python": "3.11.9",
+  "torch": "2.14.1+cu130",
+  "cuda": "13.0",
+  "gpu": "NVIDIA GeForce RTX 5090",
+  "ultralytics": "8.4.60"
+ }
+}

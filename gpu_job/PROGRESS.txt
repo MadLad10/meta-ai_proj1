@@ -1,0 +1,70 @@
+GPU PC progress, 2026-11-19 17:05 (UTC+6). Final for this PC: results in b_outputs_part1.zip (job4 without _runs/_val, job5, job7, gt, summary.txt).
+
+JOB 4 + JOB 7: six architectures fine-tuned on DUO (batch 8), DUO TEST SET (1,111 images). COCO = published Ultralytics COCO val2017 mAP50-95.
+  model     COCO   test_mAP50-95_ultralytics  test_AP_pycocotools  AP50   AP_small  AR100  recall@0.25  train_min
+  yolo11n   39.5                       0.630                0.625  0.820     0.491  0.747        0.864       31.1
+  yolo11s   47.0                       0.682                0.674  0.859     0.526  0.770        0.879       34.7
+  yolo11m   51.5                       0.692                0.685  0.857     0.543  0.780        0.882       49.0
+  yolo11l   53.4                       0.697                0.690  0.863     0.573  0.780        0.883       49.7
+  yolov8n   37.3                       0.628                0.624  0.824     0.417  0.741        0.857       27.3
+  rtdetr-l  53.0                       0.671                0.669  0.849     0.498  0.774        0.920      154.6
+
+  TIDE (Job 7, AP50 points lost): Cls Loc Both Dupe Bkg Miss | FalsePos FalseNeg
+  yolo11n   0.66 2.23 0.22 0.31 6.54 2.06 | 11.96 4.76
+  yolo11s   0.64 1.82 0.19 0.18 5.44 2.00 | 8.83 4.30
+  yolo11m   0.65 1.72 0.24 0.12 5.67 1.80 | 8.62 4.53
+  yolo11l   0.47 1.66 0.21 0.15 5.95 1.87 | 8.71 4.21
+  yolov8n   0.67 1.78 0.21 0.28 6.68 2.32 | 11.50 5.05
+  rtdetr-l  0.48 1.75 0.21 0.08 5.35 3.07 | 8.56 5.45
+
+JOB 5-DUO, DUO TEST SET (1,111 images unless marked first100 = the first 100 test images). In b_outputs_part1.zip.
+  run                                        AP     AP50   detections  unmatched  outside_image  TIDE miss/cls/loc
+  grounding-dino_common_posmap (primary)     0.090  0.151      329,831          0              0  3.6 / 19.5 / 2.2
+  grounding-dino_common (B-A6, phrases)      0.048  0.082        9,794      4,633              0  12.3 / 13.6 / 2.6
+  grounding-dino_latin_posmap (B-A1)         0.081  0.137      330,263          0              0  4.8 / 7.5 / 2.5
+  owlv2_common                               0.099  0.183      133,916          0              0  6.9 / 22.0 / 3.0
+  owlv2_latin (B-A1)                         0.086  0.154      125,059          0            189  6.6 / 28.0 / 2.3
+  qwen2.5-vl-3b_common                       0.000  0.000            0          0              0  - (no detections)
+  qwen2.5-vl-7b_common                       0.013  0.024          498          0              0  32.6 / 0.0 / 0.0
+  qwen2.5-vl-7b_common_low (pixels low)      0.007  0.013          653          0             17  16.0 / 0.0 / 0.5   (in b_outputs_part1b.zip)
+  qwen2.5-vl-3b_common_noempty_first100 (B-A5) 0.017 0.033         354          0              0  13.5 / 1.3 / 0.5
+  qwen2.5-vl-7b_common_noempty_first100 (B-A5) 0.018 0.040         320          0              4  17.4 / 0.7 / 1.6
+  qwen3-vl-8b_common_first100                0.054  0.111        1,327          0             53  8.6 / 0.7 / 0.4
+  - Qwen3-VL-8B full run stopped at 600/1,111 (GPU PC access ending; nothing saved). Speed 16.0 s/image (17.5 s/image over the last 100).
+    Replaced by the first 100 images (N=100 fits 30 min). 19/100 replies cut off at max_new_tokens=1536; all 53 outside-image boxes
+    come from 3 of those cut-off replies, none from complete replies (coordinates correct). Run as is (user decision).
+  - Grounding DINO is now scored as in its own COCO evaluation (--gdino posmap): class tokens sea cucumber -> sea cu ##cum ##ber,
+    sea urchin -> sea ur ##chin, scallop -> sc ##all ##op, starfish -> star ##fish; 0 unmatched. Phrase decoding (--gdino text) kept as B-A6,
+    32% of its boxes unmatched; decoded phrases in replies.jsonl. The earlier text-scoring folder is in outputs/job5_old/grounding-dino_common_scriptv2.
+  - B-A5 (no "Answer [] if there are none"): Qwen2.5-VL 0 empty replies of 100 (default prompt: almost all []). Cut-off replies: 3B 4/100, 7B 18/100.
+    The default-prompt rows are on 1,111 images; compare on the first 100 from detections.json (outputs/job5/duo/_gt_100.json).
+  - OWLv2 with Latin names: 189 boxes wholly outside the image (dropped); 0 with common names.
+  - Pixels low (Qwen2.5-VL-7B, run 17:15-17:28): 1,017/1,111 replies empty, 6 cut off; 17 outside-image boxes (dropped).
+  - Not run (access ended): --pixels high for Qwen2.5-VL-7B, B-A5 for Qwen3-VL-8B, Qwen3-VL-8B full run, all of RUOD (Jobs 6, 7-RUOD, 5-RUOD).
+  - Grounding DINO jobs ran alongside the VLM jobs (user override of the one-job rule); timing in record.json may be affected.
+
+JOB 5-DUO smoke test (first 20 test images, earlier text scoring for Grounding DINO):
+  smoke grounding-dino_common    AP 0.035  AP50 0.058  detections   169  unmatched  76  outside_image 0
+  smoke owlv2_common             AP 0.086  AP50 0.174  detections  1286  unmatched   0  outside_image 0
+  smoke qwen2.5-vl-3b_common     AP 0.000  AP50 0.000  detections     0  unmatched   0  outside_image 0
+  smoke qwen2.5-vl-7b_common     AP 0.007  AP50 0.010  detections     1  unmatched   0  outside_image 0
+  smoke qwen3-vl-8b_common       AP 0.067  AP50 0.137  detections   246  unmatched   0  outside_image 44
+  - Qwen3-VL-8B: coordinates correct (0-1000 grid); 4/20 replies cut off at max_new_tokens=1536 (runaway box lists); all 44 outside-image boxes come from those 4 replies (clipped, kept). Run as is (user decision).
+  - Grounding DINO: 76/245 boxes unmatched (31%): 42 'seachin' (tokenizer artefact of 'sea urchin'), 29 'sea', 5 'sea urchin starfish'. Run as is (user decision).
+  - Qwen2.5-VL-3B / 7B answer [] on almost every image (0 and 1 detections on 20 images).
+  - Earlier Job 5 results (previous script) moved to outputs/job5_old/; superseded.
+
+DATA
+  DUO: train 6,671 / test 1,111 (official). Licence CC BY 4.0 (Figshare record 25370527).
+  RUOD: train 9,800 / test 4,200, downloaded and prepared (not trained yet; priority 3). 322 distinct images appear in both train and test (official release), covering 349 test entries / 1,143 test annotations; list in outputs/gt/ruod_test_duplicates.json. Licence: dlut-dimt/RUOD Apache-2.0; xiaoDetection/RUOD none stated.
+
+DEVIATIONS
+  - .venv_gpu: Python 3.11 with its own torch 2.14.1+cu130 / torchvision 0.29.1+cu130 from download.pytorch.org (no system PyTorch existed).
+  - Smart App Control blocked new native builds: opencv-python 4.10.0.84, regex 2024.11.6, pandas 2.2.3 used instead of the latest.
+  - job4_duo.py: images looked up per split folder (DUO reuses file names across splits); batch 16 -> 8 for all six (RT-DETR-L needed 42 GB at batch 16).
+  - job5_duo_zeroshot.py evaluate(): TIDE's temporary files always use the box polygon (DUO's 'segmentation' is a flat list, which pycocotools rejects). Approved by the user. Job 7-DUO TIDE recomputed from saved detections; COCO metrics unchanged.
+  - Ultralytics fetched yolo26n.pt for its AMP check (accepted by the user).
+  - Job 6 training was started then stopped (one GPU job at a time); RUOD not trained (access ended).
+  - Qwen3-VL-8B scored on the first 100 test images only (full run stopped at 600/1,111, user decision).
+  - outputs/job4/_runs kept on the GPU PC (D4 step 3), not in the zip.
+  - Models: Qwen3-VL-8B Apache-2.0; Qwen2.5-VL-3B Qwen Research License; Qwen2.5-VL-7B Apache-2.0.

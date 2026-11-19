@@ -1,0 +1,48 @@
+{
+ "AP": 0.09889417248249614,
+ "AP50": 0.18291355055702618,
+ "AP75": 0.09345754808317241,
+ "AP_small": 0.03960243052285839,
+ "AP_medium": 0.09256540121985232,
+ "AP_large": 0.12316500592119543,
+ "AR1": 0.052053365370709856,
+ "AR10": 0.1587516966469978,
+ "AR100": 0.19040312124758096,
+ "AR_small": 0.1258888190954774,
+ "AR_medium": 0.17308396946408725,
+ "AR_large": 0.2214926969608229,
+ "per_class_AP": {
+  "holothurian": 0.0009093964774156934,
+  "echinus": 0.18245737663869668,
+  "scallop": 0.04233066137829754,
+  "starfish": 0.1698792554355747
+ },
+ "tide_main_errors": {
+  "Cls": 22.037505508790822,
+  "Loc": 3.0421839671153563,
+  "Both": 0.2386942345381513,
+  "Dupe": 0.19535820835639583,
+  "Bkg": 4.704149442439874,
+  "Miss": 6.911886607208707
+ },
+ "tide_special_errors": {
+  "FalsePos": 14.546097726536004,
+  "FalseNeg": 31.520858427426298
+ },
+ "model": "owlv2",
+ "dataset": "duo",
+ "names": "common",
+ "pixels": null,
+ "prompt_names": {
+  "holothurian": "sea cucumber",
+  "echinus": "sea urchin",
+  "scallop": "scallop",
+  "starfish": "starfish"
+ },
+ "images": 1111,
+ "detections": 133916,
+ "unmatched_labels": 0,
+ "boxes_outside_image": 0,
+ "min_score": 0.01,
+ "model_id": "google/owlv2-base-patch16-ensemble"
+}

@@ -1,0 +1,50 @@
+{
+ "AP": 0.048338450878406915,
+ "AP50": 0.08223673421324457,
+ "AP75": 0.049977674471778796,
+ "AP_small": 0.03638944459176732,
+ "AP_medium": 0.06226176964080958,
+ "AP_large": 0.046158233976141536,
+ "AR1": 0.01970497334704132,
+ "AR10": 0.08257727800748221,
+ "AR100": 0.09852004898902873,
+ "AR_small": 0.058608668341708546,
+ "AR_medium": 0.10445264143585406,
+ "AR_large": 0.09580087149397962,
+ "per_class_AP": {
+  "holothurian": 0.0,
+  "echinus": 0.040043367161298915,
+  "scallop": 0.09200106895751933,
+  "starfish": 0.06130936739480943
+ },
+ "tide_main_errors": {
+  "Cls": 13.632116242724056,
+  "Loc": 2.6104855737371366,
+  "Both": 0.06761829690944055,
+  "Dupe": 0.13560977475220248,
+  "Bkg": 2.4642465778551887,
+  "Miss": 12.307904830065631
+ },
+ "tide_special_errors": {
+  "FalsePos": 7.617910737091387,
+  "FalseNeg": 32.67704506581999
+ },
+ "model": "grounding-dino",
+ "dataset": "duo",
+ "names": "common",
+ "pixels": null,
+ "prompt": null,
+ "gdino_scoring": "text",
+ "prompt_names": {
+  "holothurian": "sea cucumber",
+  "echinus": "sea urchin",
+  "scallop": "scallop",
+  "starfish": "starfish"
+ },
+ "images": 1111,
+ "detections": 9794,
+ "unmatched_labels": 4633,
+ "boxes_outside_image": 0,
+ "min_score": 0.01,
+ "model_id": "IDEA-Research/grounding-dino-base"
+}

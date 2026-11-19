@@ -1,0 +1,32 @@
+JOB 4: DUO (real underwater benchmark), six architectures
+  prepared: images {'train': 6004, 'val': 667, 'test': 1111}, licence note: Dataset: DUO (Liu et al., arXiv 2106.05681), Figshare record
+  yolo11n    test mAP50-95 0.630  mAP50 0.827  recall 0.864  small-object recall 0.808
+  yolo11s    test mAP50-95 0.682  mAP50 0.868  recall 0.879  small-object recall 0.815
+  yolo11m    test mAP50-95 0.692  mAP50 0.867  recall 0.882  small-object recall 0.804
+  yolo11l    test mAP50-95 0.697  mAP50 0.873  recall 0.883  small-object recall 0.806
+  yolov8n    test mAP50-95 0.628  mAP50 0.828  recall 0.857  small-object recall 0.811
+  rtdetr-l   test mAP50-95 0.671  mAP50 0.853  recall 0.920  small-object recall 0.849
+JOB 5: zero-shot detectors and VLMs (COCO AP, TIDE)
+  duo/_smoke_grounding-dino_common       AP 0.035  AP50 0.058  AP_small 0.000  detections 169  unmatched 76  TIDE miss nan cls nan loc nan
+  duo/_smoke_owlv2_common                AP 0.086  AP50 0.174  AP_small 0.126  detections 1286  unmatched 0  TIDE miss nan cls nan loc nan
+  duo/_smoke_qwen2.5-vl-3b_common        AP 0.000  AP50 0.000  AP_small 0.000  detections 0  unmatched 0  TIDE miss nan cls nan loc nan
+  duo/_smoke_qwen2.5-vl-7b_common        AP 0.007  AP50 0.010  AP_small 0.000  detections 1  unmatched 0  TIDE miss nan cls nan loc nan
+  duo/_smoke_qwen3-vl-8b_common          AP 0.067  AP50 0.137  AP_small 0.024  detections 246  unmatched 0  TIDE miss nan cls nan loc nan
+  duo/grounding-dino_common              AP 0.048  AP50 0.082  AP_small 0.036  detections 9794  unmatched 4633  TIDE miss 12.3 cls 13.6 loc 2.6
+  duo/grounding-dino_common_posmap       AP 0.090  AP50 0.151  AP_small 0.035  detections 329831  unmatched 0  TIDE miss 3.6 cls 19.5 loc 2.2
+  duo/grounding-dino_latin_posmap        AP 0.081  AP50 0.137  AP_small 0.020  detections 330263  unmatched 0  TIDE miss 4.8 cls 7.5 loc 2.5
+  duo/owlv2_common                       AP 0.099  AP50 0.183  AP_small 0.040  detections 133916  unmatched 0  TIDE miss 6.9 cls 22.0 loc 3.0
+  duo/owlv2_latin                        AP 0.086  AP50 0.154  AP_small 0.023  detections 125059  unmatched 0  TIDE miss 6.6 cls 28.0 loc 2.3
+  duo/qwen2.5-vl-3b_common               AP 0.000  AP50 0.000  AP_small 0.000  detections 0  unmatched 0  TIDE miss nan cls nan loc nan
+  duo/qwen2.5-vl-3b_common_noempty_first100 AP 0.017  AP50 0.033  AP_small 0.001  detections 354  unmatched 0  TIDE miss 13.5 cls 1.3 loc 0.5
+  duo/qwen2.5-vl-7b_common               AP 0.013  AP50 0.024  AP_small 0.000  detections 498  unmatched 0  TIDE miss 32.6 cls 0.0 loc 0.0
+  duo/qwen2.5-vl-7b_common_noempty_first100 AP 0.018  AP50 0.040  AP_small 0.000  detections 320  unmatched 0  TIDE miss 17.4 cls 0.7 loc 1.6
+  duo/qwen3-vl-8b_common_first100        AP 0.054  AP50 0.111  AP_small 0.009  detections 1327  unmatched 0  TIDE miss 8.6 cls 0.7 loc 0.4
+JOB 7: fine-tuned detectors, COCO protocol
+  duo/rtdetr-l     AP 0.669  AP50 0.849  AP_small 0.498
+  duo/yolo11l      AP 0.690  AP50 0.863  AP_small 0.573
+  duo/yolo11m      AP 0.685  AP50 0.857  AP_small 0.543
+  duo/yolo11n      AP 0.625  AP50 0.820  AP_small 0.491
+  duo/yolo11s      AP 0.674  AP50 0.859  AP_small 0.526
+  duo/yolov8n      AP 0.624  AP50 0.824  AP_small 0.417
+JOB 6: RUOD (optional), six architectures

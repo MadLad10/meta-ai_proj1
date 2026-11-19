@@ -1,0 +1,25 @@
+{
+ "name": "yolo11l",
+ "base": "yolo11l.pt",
+ "recipe": {
+  "imgsz": 640,
+  "epochs": 40,
+  "batch": 8,
+  "workers": 4,
+  "seed": 17,
+  "deterministic": true,
+  "patience": 40,
+  "cos_lr": false,
+  "verbose": false,
+  "device": 0
+ },
+ "wall_s": 2979.7029999999795,
+ "best_sha256": "6b379f5067e3639a6040a5b4e0549beb957e35f08708b6733f4d5d96a1c2a536",
+ "env": {
+  "python": "3.11.9",
+  "torch": "2.14.1+cu130",
+  "cuda": "13.0",
+  "gpu": "NVIDIA GeForce RTX 5090",
+  "ultralytics": "8.4.60"
+ }
+}

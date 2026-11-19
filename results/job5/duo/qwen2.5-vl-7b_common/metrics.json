@@ -1,0 +1,48 @@
+{
+ "AP": 0.01252691172717494,
+ "AP50": 0.023881948006892834,
+ "AP75": 0.011924849978059785,
+ "AP_small": 0.00028877887788778873,
+ "AP_medium": 0.0045488118900338164,
+ "AP_large": 0.024165720514961395,
+ "AR1": 0.01039096425532083,
+ "AR10": 0.021380161067431853,
+ "AR100": 0.021439180648045657,
+ "AR_small": 0.0002512562814070352,
+ "AR_medium": 0.00686232271722465,
+ "AR_large": 0.043097710742605336,
+ "per_class_AP": {
+  "holothurian": 0.0039603960396039604,
+  "echinus": 0.016023791971451175,
+  "scallop": 0.01550372241122163,
+  "starfish": 0.014619736486422997
+ },
+ "tide_main_errors": {
+  "Cls": 0.0,
+  "Loc": 0.0,
+  "Both": 0.0,
+  "Dupe": 0.0,
+  "Bkg": 0.11617141478998727,
+  "Miss": 32.63868964975723
+ },
+ "tide_special_errors": {
+  "FalsePos": 1.819725991389924,
+  "FalseNeg": 43.28200871105036
+ },
+ "model": "qwen2.5-vl-7b",
+ "dataset": "duo",
+ "names": "common",
+ "pixels": "default",
+ "prompt_names": {
+  "holothurian": "sea cucumber",
+  "echinus": "sea urchin",
+  "scallop": "scallop",
+  "starfish": "starfish"
+ },
+ "images": 1111,
+ "detections": 498,
+ "unmatched_labels": 0,
+ "boxes_outside_image": 0,
+ "min_score": 0.01,
+ "model_id": "Qwen/Qwen2.5-VL-7B-Instruct"
+}

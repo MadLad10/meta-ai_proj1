@@ -1,0 +1,20 @@
+{
+ "AP": 0.0,
+ "note": "no detections",
+ "model": "qwen2.5-vl-3b",
+ "dataset": "duo",
+ "names": "common",
+ "pixels": "default",
+ "prompt_names": {
+  "holothurian": "sea cucumber",
+  "echinus": "sea urchin",
+  "scallop": "scallop",
+  "starfish": "starfish"
+ },
+ "images": 1111,
+ "detections": 0,
+ "unmatched_labels": 0,
+ "boxes_outside_image": 0,
+ "min_score": 0.01,
+ "model_id": "Qwen/Qwen2.5-VL-3B-Instruct"
+}

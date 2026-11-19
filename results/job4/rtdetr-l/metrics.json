@@ -1,0 +1,33 @@
+{
+ "model": "rtdetr-l",
+ "test_images": 1111,
+ "mAP50_95": 0.6707255332431783,
+ "mAP50": 0.8527372496902559,
+ "per_class_mAP50_95": {
+  "holothurian": 0.6678013846371407,
+  "echinus": 0.7223314498139018,
+  "scallop": 0.5415771504050694,
+  "starfish": 0.7511921481166015
+ },
+ "report_conf": 0.25,
+ "match_iou": 0.5,
+ "by_size": {
+  "small": {
+   "objects": 438,
+   "recall": 0.8493150684931506,
+   "confused": 0.0
+  },
+  "medium": {
+   "objects": 6223,
+   "recall": 0.9130644383737747,
+   "confused": 0.006106379559697895
+  },
+  "large": {
+   "objects": 3856,
+   "recall": 0.9387966804979253,
+   "confused": 0.004408713692946058
+  }
+ },
+ "recall_all": 0.9198440619948655,
+ "confused_all": 0.005229628220975563
+}

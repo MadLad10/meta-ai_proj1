@@ -1,0 +1,50 @@
+{
+ "AP": 0.08069796738951078,
+ "AP50": 0.13685066693955217,
+ "AP75": 0.08419151460814073,
+ "AP_small": 0.019614562571049474,
+ "AP_medium": 0.08831914060402289,
+ "AP_large": 0.09933528067666202,
+ "AR1": 0.05890288663940659,
+ "AR10": 0.24688559168390772,
+ "AR100": 0.4255190792482234,
+ "AR_small": 0.22242776381909546,
+ "AR_medium": 0.4039991717916573,
+ "AR_large": 0.47169744473396874,
+ "per_class_AP": {
+  "holothurian": 0.004379449149072929,
+  "echinus": 0.09172353402574615,
+  "scallop": 0.07886841601818471,
+  "starfish": 0.14782047036503934
+ },
+ "tide_main_errors": {
+  "Cls": 7.499574183576339,
+  "Loc": 2.5395545505874146,
+  "Both": 0.2952458498909216,
+  "Dupe": 0.24809595182805033,
+  "Bkg": 3.58750964375929,
+  "Miss": 4.751031426701335
+ },
+ "tide_special_errors": {
+  "FalsePos": 40.49159232621005,
+  "FalseNeg": 9.179952981275065
+ },
+ "model": "grounding-dino",
+ "dataset": "duo",
+ "names": "latin",
+ "pixels": null,
+ "prompt": null,
+ "gdino_scoring": "posmap",
+ "prompt_names": {
+  "holothurian": "holothurian",
+  "echinus": "echinus",
+  "scallop": "scallop",
+  "starfish": "starfish"
+ },
+ "images": 1111,
+ "detections": 330263,
+ "unmatched_labels": 0,
+ "boxes_outside_image": 0,
+ "min_score": 0.01,
+ "model_id": "IDEA-Research/grounding-dino-base"
+}

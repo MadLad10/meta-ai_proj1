@@ -1,0 +1,13 @@
+# Versions used on the GPU PC (Windows 11, Python 3.11.9, RTX 5090, CUDA 13.0).
+# Install PyTorch first, from the CUDA 13.0 index:
+#   pip install torch==2.14.1 torchvision==0.29.1 --index-url https://download.pytorch.org/whl/cu130
+ultralytics==8.4.60
+transformers==4.57.6
+opencv-python==4.10.0.84
+pandas==2.2.3
+regex==2024.11.6
+# Versions not recorded on the GPU PC:
+pycocotools
+tidecv
+accelerate
+pillow

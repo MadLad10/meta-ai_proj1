@@ -1,0 +1,33 @@
+{
+ "images": {
+  "train": 6004,
+  "val": 667,
+  "test": 1111
+ },
+ "instances": {
+  "train": {
+   "holothurian": 6059,
+   "starfish": 11233,
+   "echinus": 38727,
+   "scallop": 1509
+  },
+  "val": {
+   "holothurian": 749,
+   "echinus": 4228,
+   "starfish": 1295,
+   "scallop": 198
+  },
+  "test": {
+   "echinus": 7201,
+   "starfish": 2020,
+   "holothurian": 1079,
+   "scallop": 217
+  }
+ },
+ "val_fraction": 0.1,
+ "split_seed": 17,
+ "source_zip_sha256": {
+  "DUO.zip": "845a4c3c902ebb4b004c3e373344e87c79a00df5ed152005a20005a8a721c6f4"
+ },
+ "licence_note": "Dataset: DUO (Liu et al., arXiv 2106.05681), Figshare record 25370527, file DUO.zip (3390158070 bytes)\nLicence: CC BY 4.0, https://creativecommons.org/licenses/by/4.0/\nRecorded from the Figshare API on 2026-11-18."
+}
