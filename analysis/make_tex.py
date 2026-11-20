@@ -12,7 +12,7 @@ Z = O / 'job5' / 'duo'
 MET = {**{m: O / 'job7' / 'duo' / m / 'metrics.json' for m in ['yolov8n', 'yolo11n', 'yolo11s', 'yolo11m', 'yolo11l', 'rtdetr-l']},
        'gdino': Z / 'grounding-dino_common_posmap/metrics.json', 'gdino_text': Z / 'grounding-dino_common/metrics.json',
        'owlv2': Z / 'owlv2_common/metrics.json', 'qwen25_3b': Z / 'qwen2.5-vl-3b_common/metrics.json', 'qwen25_7b': Z / 'qwen2.5-vl-7b_common/metrics.json',
-       'qwen3_8b_100': Z / 'qwen3-vl-8b_common_first100/metrics.json'}
+       'qwen3_8b_100': Z / 'qwen3-vl-8b_common_first100/metrics.json', 'qwen3_8b': Z / 'qwen3-vl-8b_common/metrics.json'}
 M = {k: json.loads(p.read_text()) for k, p in MET.items()}
 GTD = json.loads((O / 'gt' / 'duo_instances_test.json').read_text())
 
@@ -49,7 +49,7 @@ mac('shareSeaUrchin', pct(cnt[cid['echinus']] / len(GTD['annotations'])))
 # ---- AP and differences
 af, a100, df, d100 = A['ap_full'], A['ap_first100'], A['differences_full'], A['differences_first100']
 for k, nm in [('yolov8n', 'YoloEightN'), ('yolo11n', 'YoloN'), ('yolo11l', 'YoloL'), ('gdino', 'GD'), ('gdino_text', 'GDtext'), ('owlv2', 'OWL'),
-              ('qwen25_3b', 'QThree'), ('qwen25_7b', 'QSeven'), ('gdino_latin', 'GDlatin'), ('owlv2_latin', 'OWLlatin'), ('qwen25_7b_low', 'QSevenLow')]:
+              ('qwen25_3b', 'QThree'), ('qwen25_7b', 'QSeven'), ('gdino_latin', 'GDlatin'), ('owlv2_latin', 'OWLlatin'), ('qwen25_7b_low', 'QSevenLow'), ('qwen3_8b', 'QwenVL')]:
     mac('ap' + nm, f3(af[k]['ap'])); mac('ci' + nm, ci(af[k]['ci']))
 for k, nm in [('qwen3_8b_100', 'QwenVL'), ('gdino', 'GD'), ('owlv2', 'OWL'), ('qwen25_7b', 'QSeven'), ('qwen25_3b', 'QThree'),
               ('qwen25_7b_noempty100', 'QSevenNoEmpty'), ('qwen25_3b_noempty100', 'QThreeNoEmpty')]:
@@ -57,7 +57,8 @@ for k, nm in [('qwen3_8b_100', 'QwenVL'), ('gdino', 'GD'), ('owlv2', 'OWL'), ('q
 for lab, nm in [('H2: weakest fine-tuned minus best zero-shot', 'Gap'), ('B-A6: own scoring minus phrase decoding', 'Decoding'),
                 ('model difference OWLv2 minus Grounding DINO', 'OwlGd'), ('B-A1 Grounding DINO common minus Latin', 'LatinGd'),
                 ('B-A1 OWLv2 common minus Latin', 'LatinOwl'), ('H4: Qwen2.5-VL 7B minus 3B', 'SevenThree'),
-                ('B-A2: default minus low resolution', 'Resolution'), ('largest minus smallest YOLO11', 'YoloSize')]:
+                ('B-A2: default minus low resolution', 'Resolution'), ('largest minus smallest YOLO11', 'YoloSize'),
+                ('H4 full: Qwen3-VL-8B minus Qwen2.5-VL-7B', 'QwenGenFull'), ('OWLv2 minus Qwen3-VL-8B (full)', 'OwlQwenFull'), ('Grounding DINO minus Qwen3-VL-8B (full)', 'GdQwenFull')]:
     mac('d' + nm, sg(df[lab]['diff'])); mac('dci' + nm, ci(df[lab]['ci']))
 for lab, nm in [('H4: Qwen3-VL-8B minus Qwen2.5-VL-7B', 'QwenGen'), ('Grounding DINO minus Qwen3-VL-8B', 'GdQwen'), ('OWLv2 minus Qwen3-VL-8B', 'OwlQwen'),
                 ('B-A5 7B: no-empty minus default prompt', 'PromptSeven'), ('B-A5 3B: no-empty minus default prompt', 'PromptThree')]:
@@ -66,7 +67,7 @@ s = A['spearman_coco_duo']; mac('rhoCocoDuo', f'{s["rho"]:.2f}'); mac('rhoCocoDu
 mg, mg100 = A['merged_class_ap_full'], A['merged_class_ap_first100']
 for k, nm in [('gdino', 'GD'), ('owlv2', 'OWL'), ('yolo11n', 'YoloN'), ('yolo11l', 'YoloL'), ('qwen25_7b', 'QSeven')]:
     mac('mg' + nm, f3(mg[k]['ap'])); mac('mgci' + nm, ci(mg[k]['ci']))
-mac('mgQwenVL', f3(mg100['qwen3_8b_100']['ap'])); mac('mgciQwenVL', ci(mg100['qwen3_8b_100']['ci']))
+mac('mgQwenVL', f3(mg['qwen3_8b']['ap'])); mac('mgciQwenVL', ci(mg['qwen3_8b']['ci']))
 pc = A['per_class_ap_full']
 mac('scApGD', f3(pc['gdino']['holothurian']['ap'])); mac('scApciGD', ci(pc['gdino']['holothurian']['ci']))
 mac('scApOWL', f3(pc['owlv2']['holothurian']['ap'])); mac('scApciOWL', ci(pc['owlv2']['holothurian']['ci']))
@@ -74,7 +75,7 @@ mac('scApYoloN', f3(pc['yolo11n']['holothurian']['ap']))
 
 # ---- found / named (top 100, IoU 0.5)
 fn = E['found_named']; S = 'top100_iou50'; HOLO, URCH, SCAL, STAR = '1', '2', '3', '4'
-for k, nm in [('gdino', 'GD'), ('owlv2', 'OWL'), ('yolo11n', 'YoloN'), ('gdino_latin', 'GDlatin'), ('owlv2_latin', 'OWLlatin'), ('qwen3_8b_100', 'QwenVL'), ('qwen25_7b', 'QSeven')]:
+for k, nm in [('gdino', 'GD'), ('owlv2', 'OWL'), ('yolo11n', 'YoloN'), ('gdino_latin', 'GDlatin'), ('owlv2_latin', 'OWLlatin'), ('qwen3_8b', 'QwenVL'), ('qwen25_7b', 'QSeven')]:
     a = fn[k][S]['all']; h = fn[k][S][HOLO]
     mac('found' + nm, pct(a['found'])); mac('named' + nm, pct(a['named'])); mac('foundci' + nm, pci(a['found_ci'])); mac('namedci' + nm, pci(a['named_ci']))
     mac('scFound' + nm, pct(h['found'])); mac('scNamed' + nm, pct(h['named'])); mac('scFoundci' + nm, pci(h['found_ci'])); mac('scNamedci' + nm, pci(h['named_ci']))
@@ -91,11 +92,10 @@ mac('scalAsStarOWL', N(lab('owlv2', 'scallop')['starfish'])); mac('scalAsUrchinO
 for k, nm in [('gdino', 'GD'), ('owlv2', 'OWL')]:
     mac('scNamedTopTen' + nm, pct(fn[k]['top10_iou50'][HOLO]['named'])); mac('scFoundTopTen' + nm, pct(fn[k]['top10_iou50'][HOLO]['found']))
     mac('scNamedIouSeventy' + nm, pct(fn[k]['top100_iou70'][HOLO]['named'])); mac('scFoundIouSeventy' + nm, pct(fn[k]['top100_iou70'][HOLO]['found']))
-mac('scObjectsHundred', N(fn['qwen3_8b_100'][S][HOLO]['objects']))
 
 # ---- matched budget (first 100, Qwen3-VL-8B's distinct box count)
-B = E['budget']['qwen3_count']['class_aware']
-for k, nm in [('qwen3_8b_100', 'QwenVL'), ('gdino', 'GD'), ('owlv2', 'OWL'), ('yolo11n', 'YoloN')]:
+B = E['budget']['qwen3_count_full']['class_aware']
+for k, nm in [('qwen3_8b', 'QwenVL'), ('gdino', 'GD'), ('owlv2', 'OWL'), ('yolo11n', 'YoloN')]:
     r = B[k]; mac('bP' + nm, f3(r['precision'])); mac('bR' + nm, f3(r['recall'])); mac('bPci' + nm, ci(r['precision_ci'])); mac('bRci' + nm, ci(r['recall_ci']))
     mac('bBoxes' + nm, f'{r["boxes_per_image"]:.1f}')
 for k, nm in [('gdino', 'GD'), ('owlv2', 'OWL')]:
@@ -104,50 +104,50 @@ for k, nm in [('gdino', 'GD'), ('owlv2', 'OWL')]:
 
 # ---- VLM replies
 for name, nm in [('qwen2.5-vl-3b_common', 'QThree'), ('qwen2.5-vl-7b_common', 'QSeven'), ('qwen2.5-vl-3b_common_noempty_first100', 'QThreeNoEmpty'),
-                 ('qwen2.5-vl-7b_common_noempty_first100', 'QSevenNoEmpty'), ('qwen3-vl-8b_common_first100', 'QwenVL'), ('qwen2.5-vl-7b_common_low', 'QSevenLow')]:
+                 ('qwen2.5-vl-7b_common_noempty_first100', 'QSevenNoEmpty'), ('qwen3-vl-8b_common', 'QwenVL'), ('qwen2.5-vl-7b_common_low', 'QSevenLow')]:
     n, e, c = replies(name); mac('nRep' + nm, N(n)); mac('nEmpty' + nm, N(e)); mac('nCut' + nm, N(c))
 mac('pctEmptyQSeven', pct(replies('qwen2.5-vl-7b_common')[1] / replies('qwen2.5-vl-7b_common')[0]))
 mac('nUnmatchedText', N(M['gdino_text']['unmatched_labels'])); mac('nBoxesText', N(M['gdino_text']['unmatched_labels'] + M['gdino_text']['detections']))
 mac('pctUnmatchedText', pct(M['gdino_text']['unmatched_labels'] / (M['gdino_text']['unmatched_labels'] + M['gdino_text']['detections'])))
-mac('nOutsideQwenVL', N(M['qwen3_8b_100']['boxes_outside_image']))
+mac('nOutsideQwenVL', N(M['qwen3_8b']['boxes_outside_image']))
 (P / 'numbers.tex').write_text('% Generated by analysis/make_tex.py; do not edit.\n' +
                                ''.join(f'\\newcommand{{\\{k}}}{{{v}}}\n' for k, v in macros.items()))
 
 # ---- Table 1: all models
 COCO = dict(yolov8n='37.3', yolo11n='39.5', yolo11s='47.0', yolo11m='51.5', yolo11l='53.4', **{'rtdetr-l': '53.0'})
 rows = [('YOLOv8n', 'yolov8n'), ('YOLO11n', 'yolo11n'), ('YOLO11s', 'yolo11s'), ('YOLO11m', 'yolo11m'), ('YOLO11l', 'yolo11l'), ('RT-DETR-L', 'rtdetr-l'),
-        None, ('Grounding DINO', 'gdino'), ('OWLv2', 'owlv2'), None, ('Qwen2.5-VL-3B', 'qwen25_3b'), ('Qwen2.5-VL-7B', 'qwen25_7b'), ('Qwen3-VL-8B', 'qwen3_8b_100')]
+        None, ('Grounding DINO', 'gdino'), ('OWLv2', 'owlv2'), None, ('Qwen2.5-VL-3B', 'qwen25_3b'), ('Qwen2.5-VL-7B', 'qwen25_7b'), ('Qwen3-VL-8B', 'qwen3_8b')]
 groups = {'yolov8n': 'Fine-tuned on DUO', 'gdino': 'Zero-shot detectors', 'qwen25_3b': 'Zero-shot VLMs'}
 TIME = json.loads((O / 'job9' / 'timing.json').read_text())['models']
 def ms(k):
     if k in TIME: return f"{TIME[k]['wall_ms']:.0f}"
-    d = {'gdino': 'grounding-dino_common_posmap', 'owlv2': 'owlv2_common', 'qwen25_3b': 'qwen2.5-vl-3b_common', 'qwen25_7b': 'qwen2.5-vl-7b_common', 'qwen3_8b_100': 'qwen3-vl-8b_common_first100'}[k]
+    d = {'gdino': 'grounding-dino_common_posmap', 'owlv2': 'owlv2_common', 'qwen25_3b': 'qwen2.5-vl-3b_common', 'qwen25_7b': 'qwen2.5-vl-7b_common', 'qwen3_8b': 'qwen3-vl-8b_common'}[k]
     r = json.loads((Z / d / 'record.json').read_text()); v = 1000 * r['wall_s'] / M[k]['images']
+    if k == 'qwen3_8b':                                       # mean per image over the full run (the run was resumed once)
+        qp = [json.loads(l) for l in (Z / 'qwen3-vl-8b_common' / 'partial.jsonl').read_text().splitlines() if l.strip()][1:]
+        v = 1000 * sum(x['sec'] for x in qp) / len(qp)
     return f'{v:,.0f}'.replace(',', '{,}') + ('$^\\ddagger$' if k == 'gdino' else '')
-t = ['\\begin{table*}[t]', '\\centering', '\\small', '\\setlength{\\tabcolsep}{4.5pt}', '\\begin{tabular}{llccccccc}', '\\toprule',
-     ' & & \\multicolumn{5}{c}{Full test set (\\nTestImages{} images)} & First 100 images & \\\\', '\\cmidrule(lr){3-7}\\cmidrule(lr){8-8}',
-     'Model & COCO AP & AP (95\\% CI) & AP$_{50}$ & AR$_{100}$ & Merged AP & Sea cuc.\\ AP & AP (95\\% CI) & ms/image \\\\', '\\midrule']
+t = ['\\begin{table*}[t]', '\\centering', '\\small', '\\begin{tabular}{llcccccc}', '\\toprule',
+     'Model & COCO AP & AP (95\\% CI) & AP$_{50}$ & AR$_{100}$ & Merged AP & Sea cucumber AP & ms per image \\\\', '\\midrule']
 for r in rows:
     if r is None:
         t.append('\\midrule'); continue
     name, k = r
     if k in groups:
-        t.append(f'\\multicolumn{{9}}{{l}}{{\\textit{{{groups[k]}}}}} \\\\')
-    if k == 'qwen3_8b_100':
-        full = '\\multicolumn{5}{c}{not run on the full test set}'
-    else:
+        t.append(f'\\multicolumn{{8}}{{l}}{{\\textit{{{groups[k]}}}}} \\\\')
+    if True:
         m = M[k]; mgv = f3(mg[k]['ap']) if k in mg else '--'
         sc = f3(m['per_class_AP']['holothurian']) if m.get('per_class_AP') else '0.000'
         full = f"{f3(af[k]['ap'])} {ci(af[k]['ci'])} & {f3(m.get('AP50', 0))} & {f3(m.get('AR100', 0))} & {mgv} & {sc}"
-    t.append(f"{name} & {COCO.get(k, '--')} & {full} & {f3(a100[k]['ap'])} {ci(a100[k]['ci'])} & {ms(k)} \\\\")
+    t.append(f"{name} & {COCO.get(k, '--')} & {full} & {ms(k)} \\\\")
 t += ['\\bottomrule', '\\end{tabular}',
       '\\caption{Detection results on the DUO test set (COCO protocol, pycocotools). Intervals are 95\\% paired bootstrap intervals over test images. '
       'COCO AP is the published value for the fine-tuned architectures (Ultralytics). Merged AP treats all four classes as one, so a box counts '
-      'regardless of its label. Qwen3-VL-8B was run only on the first 100 test images; the last column compares all models on those images. '
+      'regardless of its label. '
       'VLM boxes carry no confidence score and are all scored 1.0. Time per image on one RTX 5090: for the fine-tuned detectors, the median over 200 test '
       'images processed one at a time on an idle GPU, including pre- and post-processing; for the zero-shot models, wall-clock time over the whole run, '
-      'including image loading. $^\\ddagger$Grounding DINO shared the GPU with another job, so its time is an upper bound. Qwen2.5-VL is fast because '
-      'it mostly returns an empty answer.}', '\\label{tab:main}', '\\end{table*}']
+      'including image loading. $^\\ddagger$Grounding DINO shared the GPU with another job, so its time is an upper bound. Qwen3-VL-8B is slowest on images '
+      'where it keeps listing boxes; Qwen2.5-VL is fast because it mostly returns an empty answer.}', '\\label{tab:main}', '\\end{table*}']
 (P / 'tab_main.tex').write_text('\n'.join(t) + '\n')
 
 # ---- Table 2: what found sea cucumbers are called
@@ -160,10 +160,10 @@ t = ['\\begin{table}[t]', '\\centering', '\\small', '\\setlength{\\tabcolsep}{2.
      'Model, names & Found & Named & Cuc. & Urch. & Scal. & Star. \\\\', '\\midrule',
      '\\multicolumn{7}{l}{Grounding DINO} \\\\', lrow('\\quad common', 'gdino'), lrow('\\quad Latin', 'gdino_latin'),
      '\\multicolumn{7}{l}{OWLv2} \\\\', lrow('\\quad common', 'owlv2'), lrow('\\quad Latin', 'owlv2_latin'),
-     '\\midrule', lrow('YOLO11n, fine-tuned', 'yolo11n'), lrow('Qwen3-VL-8B$^\\dagger$', 'qwen3_8b_100'), '\\bottomrule', '\\end{tabular}',
+     '\\midrule', lrow('YOLO11n, fine-tuned', 'yolo11n'), lrow('Qwen3-VL-8B', 'qwen3_8b'), '\\bottomrule', '\\end{tabular}',
      f'\\caption{{What happens to the \\nSeaCucumber{{}} sea cucumbers in the DUO test set. Found: \\% of objects overlapped (IoU $\\geq$ 0.5) by any of the '
      f'image\'s 100 highest-scoring boxes, of any class. Named: \\% overlapped by such a box with the correct class. The right block gives the class of the '
-     f'best-overlapping box, as \\% of the found sea cucumbers. $^\\dagger$First 100 images only ({fn["qwen3_8b_100"][S][HOLO]["objects"]} sea cucumbers).}}', '\\label{tab:seacucumber}', '\\end{table}']
+     f'best-overlapping box, as \\% of the found sea cucumbers.}}', '\\label{tab:seacucumber}', '\\end{table}']
 (P / 'tab_seacucumber.tex').write_text('\n'.join(t) + '\n')
 
 # ---- Table 3: evaluation choices
@@ -194,14 +194,14 @@ t = ['\\begin{table}[t]', '\\centering', '\\small', '\\begin{tabular}{lc}', '\\t
 neg = lambda d: f"{sg(-d['diff'])} [{f3(-d['ci'][1])}, {f3(-d['ci'][0])}]"   # reverse a difference and its interval
 t = ['\\begin{table*}[t]', '\\centering', '\\small', '\\begin{tabular}{lcccc}', '\\toprule',
      'Model & AP (95\\% CI) & Precision (95\\% CI) & Recall (95\\% CI) & Boxes/image \\\\', '\\midrule']
-for name, k, nm in [('Qwen3-VL-8B', 'qwen3_8b_100', 'QwenVL'), ('OWLv2', 'owlv2', 'OWL'), ('Grounding DINO', 'gdino', 'GD'), ('YOLO11n (fine-tuned)', 'yolo11n', 'YoloN')]:
+for name, k, nm in [('Qwen3-VL-8B', 'qwen3_8b', 'QwenVL'), ('OWLv2', 'owlv2', 'OWL'), ('Grounding DINO', 'gdino', 'GD'), ('YOLO11n (fine-tuned)', 'yolo11n', 'YoloN')]:
     r = B[k]
-    t.append(f"{name} & {f3(a100[k]['ap'])} {ci(a100[k]['ci'])} & {f3(r['precision'])} {ci(r['precision_ci'])} & {f3(r['recall'])} {ci(r['recall_ci'])} & {r['boxes_per_image']:.1f} \\\\")
+    t.append(f"{name} & {f3(af[k]['ap'])} {ci(af[k]['ci'])} & {f3(r['precision'])} {ci(r['precision_ci'])} & {f3(r['recall'])} {ci(r['recall_ci'])} & {r['boxes_per_image']:.1f} \\\\")
 t += ['\\midrule',
-      f"Qwen3-VL-8B $-$ OWLv2 & {neg(d100['OWLv2 minus Qwen3-VL-8B'])} & {macros['bdPOWL']} {macros['bdciPOWL']} & {macros['bdROWL']} {macros['bdciROWL']} & \\\\",
-      f"Qwen3-VL-8B $-$ G.\\ DINO & {neg(d100['Grounding DINO minus Qwen3-VL-8B'])} & {macros['bdPGD']} {macros['bdciPGD']} & {macros['bdRGD']} {macros['bdciRGD']} & \\\\",
+      f"Qwen3-VL-8B $-$ OWLv2 & {neg(df['OWLv2 minus Qwen3-VL-8B (full)'])} & {macros['bdPOWL']} {macros['bdciPOWL']} & {macros['bdROWL']} {macros['bdciROWL']} & \\\\",
+      f"Qwen3-VL-8B $-$ G.\\ DINO & {neg(df['Grounding DINO minus Qwen3-VL-8B (full)'])} & {macros['bdPGD']} {macros['bdciPGD']} & {macros['bdRGD']} {macros['bdciRGD']} & \\\\",
       '\\bottomrule', '\\end{tabular}',
-      '\\caption{Ranking by AP against ranking at a matched box budget (first 100 test images). AP uses each model\'s full ranked output. '
+      '\\caption{Ranking by AP against ranking at a matched box budget (full test set). AP uses each model\'s full ranked output. '
       'For precision and recall (IoU $\\geq$ 0.5, correct class), each detector keeps on every image only as many of its highest-scoring distinct boxes as '
       'Qwen3-VL-8B returned there, and all boxes count equally. The last two rows give Qwen3-VL-8B minus the detector, with 95\\% paired bootstrap intervals.}',
       '\\label{tab:budget}', '\\end{table*}']
@@ -224,16 +224,19 @@ t += ['\\bottomrule', '\\end{tabular}', '\\caption{Found and named shares (\\%, 
 t = ['\\begin{table}[!ht]', '\\centering', '\\small', '\\setlength{\\tabcolsep}{3.5pt}', '\\begin{tabular}{lcccccc}', '\\toprule',
      'Model & Cls & Loc & Both & Dupe & Bkg & Miss \\\\', '\\midrule']
 for name, k in [('YOLOv8n', 'yolov8n'), ('YOLO11n', 'yolo11n'), ('YOLO11s', 'yolo11s'), ('YOLO11m', 'yolo11m'), ('YOLO11l', 'yolo11l'), ('RT-DETR-L', 'rtdetr-l'),
-                ('Grounding DINO', 'gdino'), ('OWLv2', 'owlv2'), ('Qwen2.5-VL-7B', 'qwen25_7b'), ('Qwen3-VL-8B$^\\dagger$', 'qwen3_8b_100')]:
+                ('Grounding DINO', 'gdino'), ('OWLv2', 'owlv2'), ('Qwen2.5-VL-7B', 'qwen25_7b'), ('Qwen3-VL-8B', 'qwen3_8b')]:
     te = M[k]['tide_main_errors']
     t.append(name + ' & ' + ' & '.join(f'{te[c]:.1f}' for c in ['Cls', 'Loc', 'Both', 'Dupe', 'Bkg', 'Miss']) + ' \\\\')
 t += ['\\bottomrule', '\\end{tabular}', '\\caption{TIDE error breakdown: AP$_{50}$ points recovered by fixing each error type '
-      '(Bolya et al.\\ 2020). $^\\dagger$First 100 images. The fixes are not additive, and the open-vocabulary detectors output several class labels '
+      '(Bolya et al.\\ 2020). The fixes are not additive, and the open-vocabulary detectors output several class labels '
       'for the same box, which inflates their Cls value; we therefore use TIDE only as supporting evidence.}', '\\label{tab:tide}', '\\end{table}']
 (P / 'tab_tide.tex').write_text('\n'.join(t) + '\n')
 
 
 # ---- derived numbers used in the text
+QP = [json.loads(l) for l in (Z / 'qwen3-vl-8b_common' / 'partial.jsonl').read_text().splitlines() if l.strip()]
+QSEC = sorted(r['sec'] for r in QP[1:])                      # first answer includes model loading
+mac('secQwenVLmean', f'{sum(QSEC) / len(QSEC):.1f}'); mac('secQwenVLmedian', f'{QSEC[len(QSEC) // 2]:.1f}')
 mac('nImagesWithObjects', N(len({a['image_id'] for a in GTD['annotations']})))
 for k, nm in [('gdino', 'GD'), ('owlv2', 'OWL')]:
     a = fn[k][S]['all']; mac('lossNaming' + nm, f"{100 * a['found'] - 100 * a['named']:.0f}")
@@ -242,10 +245,10 @@ ny = [fn['yolo11n'][S][c]['named'] / fn['yolo11n'][S][c]['found'] for c in (HOLO
 mac('namedOfFoundMinYoloN', pct(min(ny))); mac('namedOfFoundMaxYoloN', pct(max(ny)))
 tm = [json.loads((O / 'job4' / m / 'record.json').read_text())['wall_s'] / 60 for m in COCO]
 mac('trainMinMinutes', f'{min(tm):.0f}'); mac('trainMaxMinutes', f'{max(tm):.0f}')
-for r, nm in [('qwen3-vl-8b_common_first100', 'QwenVL'), ('owlv2_common', 'OWL'), ('qwen2.5-vl-7b_common', 'QSeven')]:
+for r, nm in [('owlv2_common', 'OWL'), ('qwen2.5-vl-7b_common', 'QSeven')]:
     d = json.loads((Z / r / 'record.json').read_text()); m = json.loads((Z / r / 'metrics.json').read_text())
     mac('sec' + nm, f"{d['wall_s'] / m['images']:.1f}")
-G2 = E['budget']['gt_count']['class_aware']
+G2 = E['budget']['gt_count_full']['class_aware']
 for k, nm in [('gdino', 'GD'), ('owlv2', 'OWL'), ('yolo11n', 'YoloN')]:
     mac('gtbP' + nm, f3(G2[k]['precision'])); mac('gtbR' + nm, f3(G2[k]['recall']))
 (P / 'numbers.tex').write_text('% Generated by analysis/make_tex.py; do not edit.\n' +
@@ -307,3 +310,6 @@ raw = P / 'fig_found_named.raw.pdf'; fig.savefig(raw); plt.close(fig)
 subprocess.run(['gs', '-q', '-o', str(P / 'fig_found_named.pdf'), '-dNoOutputFonts', '-sDEVICE=pdfwrite', str(raw)], check=True)
 raw.unlink()
 print(len(macros), 'macros; tables and figure written')
+
+# ---- two-benchmark tables and macros
+exec((ROOT / 'analysis' / 'tables_v2.py').read_text())

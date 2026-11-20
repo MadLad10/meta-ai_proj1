@@ -1,0 +1,12 @@
+{
+ "gdino": {
+  "crops": 20,
+  "same_answer": 20,
+  "max_abs_score_diff": 0.0007238537073135376
+ },
+ "owlv2": {
+  "crops": 20,
+  "same_answer": 20,
+  "max_abs_score_diff": 8.963514119386673e-06
+ }
+}

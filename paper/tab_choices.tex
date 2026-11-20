@@ -1,0 +1,34 @@
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lc}
+\toprule
+Setting & Value (95\% CI) \\
+\midrule
+\multicolumn{2}{l}{\textit{(a) Grounding DINO decoding (DUO AP)}} \\
+Own scoring $-$ phrase decoding & +0.042 [0.032, 0.053] \\
+OWLv2 $-$ Grounding DINO & +0.009 [$-$0.015, 0.031] \\
+\midrule
+\multicolumn{2}{l}{\textit{(b) VLM prompt, $\Delta$AP on DUO (first 100 images)}} \\
+\multicolumn{2}{l}{\quad no ``Answer []'' / one class per prompt:} \\
+\quad Qwen2.5-VL-3B & +0.017 / +0.000 \\
+\quad Qwen2.5-VL-7B & +0.000 / +0.018 \\
+\quad Qwen3-VL-8B & $-$0.006 / +0.010 \\
+\midrule
+\multicolumn{2}{l}{\textit{(c) Qwen3-VL-8B minus Grounding DINO}} \\
+DUO AP & $-$0.043 [$-$0.064, $-$0.016] \\
+DUO P / R, matched boxes & +0.112 / +0.130 \\
+RUOD AP (subset) & $-$0.061 [$-$0.070, $-$0.036] \\
+RUOD P / R, matched boxes & +0.177 / +0.226 \\
+\midrule
+\multicolumn{2}{l}{\textit{(d) Qwen3-VL-8B minus OWLv2}} \\
+DUO AP & $-$0.051 [$-$0.061, $-$0.040] \\
+DUO P / R, matched boxes & $-$0.001 / +0.061 \\
+RUOD AP (subset) & $-$0.009 [$-$0.019, 0.017] \\
+RUOD P / R, matched boxes & +0.121 / +0.155 \\
+\bottomrule
+\end{tabular}
+\caption{Evaluation choices. (a) The same Grounding DINO outputs scored as in its own COCO evaluation or through phrase decoding. (b) Change in AP when the sentence ``Answer [] if there are none'' is removed, or when the four classes are asked for one at a time (intervals in the text). (c, d) P, R: precision and recall. At a matched box budget (each detector keeps as many boxes per image as the VLM returned, all counting equally; IoU $\geq$ 0.5, correct class) the VLM matches or exceeds them; at IoU $\geq$ 0.75 its advantage shrinks (Section~\ref{sec:choices}). Differences are Qwen3-VL-8B minus the detector.}
+\label{tab:choices}
+\end{table}

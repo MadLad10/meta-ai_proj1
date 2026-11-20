@@ -116,6 +116,13 @@
     0.004670669446607298,
     0.015005020259022185
    ]
+  },
+  "qwen3_8b": {
+   "ap": 0.04752524895910218,
+   "ci": [
+    0.04342734717931206,
+    0.05577832557135355
+   ]
   }
  },
  "ap_first100": {
@@ -237,6 +244,41 @@
     0.04277301564750166,
     0.08737380536213485
    ]
+  },
+  "qwen3_8b": {
+   "ap": 0.05381905474410119,
+   "ci": [
+    0.04277301564750166,
+    0.08737380536213485
+   ]
+  },
+  "qwen25_3b_single100": {
+   "ap": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "qwen25_7b_single100": {
+   "ap": 0.03556503404713161,
+   "ci": [
+    0.014433891813452062,
+    0.0787518370031906
+   ]
+  },
+  "qwen3_8b_single100": {
+   "ap": 0.0640808854215671,
+   "ci": [
+    0.055562321123449734,
+    0.09575940138494142
+   ]
+  },
+  "qwen3_8b_noempty100": {
+   "ap": 0.047615338093881916,
+   "ci": [
+    0.038566158424153424,
+    0.07178212596584486
+   ]
   }
  },
  "differences_full": {
@@ -295,6 +337,27 @@
     0.05630283995583009,
     0.07415861117524153
    ]
+  },
+  "H4 full: Qwen3-VL-8B minus Qwen2.5-VL-7B": {
+   "diff": 0.03499833723192724,
+   "ci": [
+    0.028894374890429064,
+    0.043268572127789784
+   ]
+  },
+  "OWLv2 minus Qwen3-VL-8B (full)": {
+   "diff": 0.05136892352339398,
+   "ci": [
+    0.03959172848461602,
+    0.06051288724927755
+   ]
+  },
+  "Grounding DINO minus Qwen3-VL-8B (full)": {
+   "diff": 0.04254314743153445,
+   "ci": [
+    0.016308331700447126,
+    0.06367280278157962
+   ]
   }
  },
  "differences_first100": {
@@ -332,6 +395,34 @@
     0.008504065237922959,
     0.03201233409495285
    ]
+  },
+  "B-A5 Qwen3: no-empty minus default prompt": {
+   "diff": -0.006203716650219272,
+   "ci": [
+    -0.022762275534378488,
+    0.0015899963845283002
+   ]
+  },
+  "single 3B: single-class minus default prompt": {
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "single 7B: single-class minus default prompt": {
+   "diff": 0.017764383259573583,
+   "ci": [
+    0.0013683632286527656,
+    0.061725169672870374
+   ]
+  },
+  "single Qwen3: single-class minus default prompt": {
+   "diff": 0.010261830677465916,
+   "ci": [
+    -0.0036009023236210007,
+    0.02573009981107895
+   ]
   }
  },
  "spearman_coco_duo": {
@@ -350,6 +441,22 @@
    ],
    "four_class_ap": 0.6251944007044284
   },
+  "yolo11s": {
+   "ap": 0.7303817804886084,
+   "ci": [
+    0.7113845754437442,
+    0.7500298037772918
+   ],
+   "four_class_ap": 0.6741843032828687
+  },
+  "yolo11m": {
+   "ap": 0.7418984024402526,
+   "ci": [
+    0.7240337584437524,
+    0.7620962199536373
+   ],
+   "four_class_ap": 0.6848192718708758
+  },
   "yolo11l": {
    "ap": 0.7436044266408317,
    "ci": [
@@ -357,6 +464,22 @@
     0.7630063199930002
    ],
    "four_class_ap": 0.6898495837510116
+  },
+  "yolov8n": {
+   "ap": 0.6998923625276996,
+   "ci": [
+    0.6813203877208229,
+    0.7189275196461172
+   ],
+   "four_class_ap": 0.6243507964109639
+  },
+  "rtdetr-l": {
+   "ap": 0.7182322470299263,
+   "ci": [
+    0.7010852168869968,
+    0.7372272608990129
+   ],
+   "four_class_ap": 0.6687457758842421
   },
   "gdino": {
    "ap": 0.13570671830632658,
@@ -366,6 +489,22 @@
    ],
    "four_class_ap": 0.09006839639063663
   },
+  "gdino_text": {
+   "ap": 0.06767171744249309,
+   "ci": [
+    0.06129239207731319,
+    0.07478172755770375
+   ],
+   "four_class_ap": 0.04833845087840692
+  },
+  "gdino_latin": {
+   "ap": 0.12055011960237429,
+   "ci": [
+    0.11038359679232655,
+    0.13090715957096466
+   ],
+   "four_class_ap": 0.0806979673895108
+  },
   "owlv2": {
    "ap": 0.15100964919553012,
    "ci": [
@@ -374,6 +513,22 @@
    ],
    "four_class_ap": 0.09889417248249616
   },
+  "owlv2_latin": {
+   "ap": 0.09250335255183045,
+   "ci": [
+    0.08319705884706442,
+    0.10272505140473245
+   ],
+   "four_class_ap": 0.0857095415835342
+  },
+  "qwen25_3b": {
+   "ap": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "four_class_ap": 0.0
+  },
   "qwen25_7b": {
    "ap": 0.015712513651171097,
    "ci": [
@@ -381,6 +536,22 @@
     0.018731239698506912
    ],
    "four_class_ap": 0.01252691172717494
+  },
+  "qwen25_7b_low": {
+   "ap": 0.010262286454027438,
+   "ci": [
+    0.006281531317294147,
+    0.01458135622577675
+   ],
+   "four_class_ap": 0.00719483299575817
+  },
+  "qwen3_8b": {
+   "ap": 0.08340044727948552,
+   "ci": [
+    0.07642637043532005,
+    0.0939298319685406
+   ],
+   "four_class_ap": 0.04752524895910218
   }
  },
  "merged_class_ap_first100": {
@@ -559,336 +730,36 @@
      0.019236565557671375
     ]
    }
-  }
- },
- "found_and_named": {
-  "yolo11n": {
+  },
+  "qwen3_8b": {
    "holothurian": {
-    "objects": 1079,
-    "found": 1045,
-    "named": 1031,
-    "label_of_best": {
-     "holothurian": 1018,
-     "echinus": 13,
-     "scallop": 6,
-     "starfish": 8
-    },
-    "found_share": 0.9684893419833179,
-    "named_share": 0.9555143651529193
+    "ap": 0.0036409247975907684,
+    "ci": [
+     0.002270566445173385,
+     0.007909484585793582
+    ]
    },
    "echinus": {
-    "objects": 7201,
-    "found": 6852,
-    "named": 6841,
-    "label_of_best": {
-     "holothurian": 12,
-     "echinus": 6820,
-     "scallop": 4,
-     "starfish": 16
-    },
-    "found_share": 0.9515345090959589,
-    "named_share": 0.9500069434800722
+    "ap": 0.11893801534103868,
+    "ci": [
+     0.108266487162926,
+     0.1368071586370924
+    ]
    },
    "scallop": {
-    "objects": 217,
-    "found": 204,
-    "named": 198,
-    "label_of_best": {
-     "holothurian": 8,
-     "echinus": 4,
-     "scallop": 187,
-     "starfish": 5
-    },
-    "found_share": 0.9400921658986175,
-    "named_share": 0.9124423963133641
+    "ap": 0.006236099323567158,
+    "ci": [
+     0.002895270141189643,
+     0.018752666139410918
+    ]
    },
    "starfish": {
-    "objects": 2020,
-    "found": 1959,
-    "named": 1933,
-    "label_of_best": {
-     "holothurian": 8,
-     "echinus": 31,
-     "scallop": 4,
-     "starfish": 1916
-    },
-    "found_share": 0.9698019801980198,
-    "named_share": 0.9569306930693069
+    "ap": 0.061285956374212115,
+    "ci": [
+     0.0494370952574697,
+     0.079741321664793
+    ]
    }
-  },
-  "gdino": {
-   "holothurian": {
-    "objects": 1079,
-    "found": 659,
-    "named": 47,
-    "label_of_best": {
-     "holothurian": 0,
-     "echinus": 574,
-     "scallop": 26,
-     "starfish": 59
-    },
-    "found_share": 0.6107506950880445,
-    "named_share": 0.04355885078776645
-   },
-   "echinus": {
-    "objects": 7201,
-    "found": 5010,
-    "named": 4972,
-    "label_of_best": {
-     "holothurian": 3,
-     "echinus": 4786,
-     "scallop": 172,
-     "starfish": 49
-    },
-    "found_share": 0.6957367032356617,
-    "named_share": 0.6904596583807805
-   },
-   "scallop": {
-    "objects": 217,
-    "found": 182,
-    "named": 122,
-    "label_of_best": {
-     "holothurian": 0,
-     "echinus": 115,
-     "scallop": 65,
-     "starfish": 2
-    },
-    "found_share": 0.8387096774193549,
-    "named_share": 0.5622119815668203
-   },
-   "starfish": {
-    "objects": 2020,
-    "found": 1418,
-    "named": 1079,
-    "label_of_best": {
-     "holothurian": 2,
-     "echinus": 988,
-     "scallop": 7,
-     "starfish": 421
-    },
-    "found_share": 0.7019801980198019,
-    "named_share": 0.5341584158415842
-   }
-  },
-  "owlv2": {
-   "holothurian": {
-    "objects": 1079,
-    "found": 566,
-    "named": 90,
-    "label_of_best": {
-     "holothurian": 84,
-     "echinus": 93,
-     "scallop": 0,
-     "starfish": 389
-    },
-    "found_share": 0.5245597775718258,
-    "named_share": 0.08341056533827618
-   },
-   "echinus": {
-    "objects": 7201,
-    "found": 4434,
-    "named": 3876,
-    "label_of_best": {
-     "holothurian": 426,
-     "echinus": 3860,
-     "scallop": 0,
-     "starfish": 148
-    },
-    "found_share": 0.6157478128037772,
-    "named_share": 0.5382585751978892
-   },
-   "scallop": {
-    "objects": 217,
-    "found": 186,
-    "named": 18,
-    "label_of_best": {
-     "holothurian": 4,
-     "echinus": 79,
-     "scallop": 16,
-     "starfish": 87
-    },
-    "found_share": 0.8571428571428571,
-    "named_share": 0.08294930875576037
-   },
-   "starfish": {
-    "objects": 2020,
-    "found": 1312,
-    "named": 1231,
-    "label_of_best": {
-     "holothurian": 22,
-     "echinus": 66,
-     "scallop": 0,
-     "starfish": 1224
-    },
-    "found_share": 0.6495049504950495,
-    "named_share": 0.6094059405940594
-   }
-  },
-  "qwen25_7b": {
-   "holothurian": {
-    "objects": 1079,
-    "found": 8,
-    "named": 4,
-    "label_of_best": {
-     "holothurian": 4,
-     "echinus": 1,
-     "scallop": 1,
-     "starfish": 2
-    },
-    "found_share": 0.0074142724745134385,
-    "named_share": 0.0037071362372567192
-   },
-   "echinus": {
-    "objects": 7201,
-    "found": 255,
-    "named": 238,
-    "label_of_best": {
-     "holothurian": 13,
-     "echinus": 238,
-     "scallop": 1,
-     "starfish": 3
-    },
-    "found_share": 0.03541174836828218,
-    "named_share": 0.033050965143730036
-   },
-   "scallop": {
-    "objects": 217,
-    "found": 20,
-    "named": 18,
-    "label_of_best": {
-     "holothurian": 0,
-     "echinus": 1,
-     "scallop": 18,
-     "starfish": 1
-    },
-    "found_share": 0.09216589861751152,
-    "named_share": 0.08294930875576037
-   },
-   "starfish": {
-    "objects": 2020,
-    "found": 62,
-    "named": 53,
-    "label_of_best": {
-     "holothurian": 0,
-     "echinus": 0,
-     "scallop": 10,
-     "starfish": 52
-    },
-    "found_share": 0.030693069306930693,
-    "named_share": 0.026237623762376237
-   }
-  },
-  "qwen3_8b_100": {
-   "holothurian": {
-    "objects": 110,
-    "found": 10,
-    "named": 8,
-    "label_of_best": {
-     "holothurian": 8,
-     "echinus": 0,
-     "scallop": 0,
-     "starfish": 2
-    },
-    "found_share": 0.09090909090909091,
-    "named_share": 0.07272727272727272
-   },
-   "echinus": {
-    "objects": 795,
-    "found": 387,
-    "named": 357,
-    "label_of_best": {
-     "holothurian": 28,
-     "echinus": 356,
-     "scallop": 1,
-     "starfish": 2
-    },
-    "found_share": 0.4867924528301887,
-    "named_share": 0.4490566037735849
-   },
-   "scallop": {
-    "objects": 15,
-    "found": 10,
-    "named": 9,
-    "label_of_best": {
-     "holothurian": 1,
-     "echinus": 1,
-     "scallop": 8,
-     "starfish": 0
-    },
-    "found_share": 0.6666666666666666,
-    "named_share": 0.6
-   },
-   "starfish": {
-    "objects": 245,
-    "found": 76,
-    "named": 55,
-    "label_of_best": {
-     "holothurian": 11,
-     "echinus": 10,
-     "scallop": 3,
-     "starfish": 52
-    },
-    "found_share": 0.31020408163265306,
-    "named_share": 0.22448979591836735
-   }
-  }
- },
- "matched_budget_first100": {
-  "qwen3_8b_100": {
-   "boxes_per_image": 13.27,
-   "class_aware": {
-    "precision": 0.3225320271288621,
-    "recall": 0.36738197424892705,
-    "boxes": 1327
-   },
-   "class_agnostic": {
-    "precision": 0.3624717407686511,
-    "recall": 0.4128755364806867,
-    "boxes": 1327
-   },
-   "ap_at_budget": 0.05381905474410119
-  },
-  "gdino": {
-   "boxes_per_image": 13.27,
-   "class_aware": {
-    "precision": 0.23285606631499622,
-    "recall": 0.2652360515021459,
-    "boxes": 1327
-   },
-   "class_agnostic": {
-    "precision": 0.29691032403918616,
-    "recall": 0.3381974248927039,
-    "boxes": 1327
-   },
-   "ap_at_budget": 0.08453048761512502
-  },
-  "owlv2": {
-   "boxes_per_image": 10.73,
-   "class_aware": {
-    "precision": 0.3718546132339236,
-    "recall": 0.3424892703862661,
-    "boxes": 1073
-   },
-   "class_agnostic": {
-    "precision": 0.4091332712022367,
-    "recall": 0.37682403433476397,
-    "boxes": 1073
-   },
-   "ap_at_budget": 0.04843034457644652
-  },
-  "yolo11n": {
-   "boxes_per_image": 12.73,
-   "class_aware": {
-    "precision": 0.5380989787902593,
-    "recall": 0.5879828326180258,
-    "boxes": 1273
-   },
-   "class_agnostic": {
-    "precision": 0.5380989787902593,
-    "recall": 0.5879828326180258,
-    "boxes": 1273
-   },
-   "ap_at_budget": 0.19759916611540335
   }
  }
 }

@@ -28,6 +28,8 @@
 \newcommand{\ciOWLlatin}{[0.067, 0.105]}
 \newcommand{\apQSevenLow}{0.007}
 \newcommand{\ciQSevenLow}{[0.005, 0.015]}
+\newcommand{\apQwenVL}{0.048}
+\newcommand{\ciQwenVL}{[0.043, 0.056]}
 \newcommand{\apHQwenVL}{0.054}
 \newcommand{\ciHQwenVL}{[0.043, 0.087]}
 \newcommand{\apHGD}{0.078}
@@ -58,6 +60,12 @@
 \newcommand{\dciResolution}{[$-$0.002, 0.009]}
 \newcommand{\dYoloSize}{+0.065}
 \newcommand{\dciYoloSize}{[0.056, 0.074]}
+\newcommand{\dQwenGenFull}{+0.035}
+\newcommand{\dciQwenGenFull}{[0.029, 0.043]}
+\newcommand{\dOwlQwenFull}{+0.051}
+\newcommand{\dciOwlQwenFull}{[0.040, 0.061]}
+\newcommand{\dGdQwenFull}{+0.043}
+\newcommand{\dciGdQwenFull}{[0.016, 0.064]}
 \newcommand{\dQwenGen}{+0.036}
 \newcommand{\dciQwenGen}{[0.021, 0.066]}
 \newcommand{\dGdQwen}{+0.024}
@@ -80,8 +88,8 @@
 \newcommand{\mgciYoloL}{[0.724, 0.763]}
 \newcommand{\mgQSeven}{0.016}
 \newcommand{\mgciQSeven}{[0.011, 0.019]}
-\newcommand{\mgQwenVL}{0.100}
-\newcommand{\mgciQwenVL}{[0.080, 0.139]}
+\newcommand{\mgQwenVL}{0.083}
+\newcommand{\mgciQwenVL}{[0.076, 0.094]}
 \newcommand{\scApGD}{0.004}
 \newcommand{\scApciGD}{[0.002, 0.008]}
 \newcommand{\scApOWL}{0.001}
@@ -127,14 +135,14 @@
 \newcommand{\scNamedOWLlatin}{0}
 \newcommand{\scFoundciOWLlatin}{[49, 56]}
 \newcommand{\scNamedciOWLlatin}{[0, 0]}
-\newcommand{\foundQwenVL}{41}
-\newcommand{\namedQwenVL}{37}
-\newcommand{\foundciQwenVL}{[34, 48]}
-\newcommand{\namedciQwenVL}{[30, 43]}
-\newcommand{\scFoundQwenVL}{9}
-\newcommand{\scNamedQwenVL}{7}
-\newcommand{\scFoundciQwenVL}{[4, 15]}
-\newcommand{\scNamedciQwenVL}{[3, 13]}
+\newcommand{\foundQwenVL}{44}
+\newcommand{\namedQwenVL}{41}
+\newcommand{\foundciQwenVL}{[42, 47]}
+\newcommand{\namedciQwenVL}{[39, 43]}
+\newcommand{\scFoundQwenVL}{15}
+\newcommand{\scNamedQwenVL}{11}
+\newcommand{\scFoundciQwenVL}{[13, 17]}
+\newcommand{\scNamedciQwenVL}{[9, 13]}
 \newcommand{\foundQSeven}{3}
 \newcommand{\namedQSeven}{3}
 \newcommand{\foundciQSeven}{[3, 4]}
@@ -164,35 +172,34 @@
 \newcommand{\scFoundTopTenOWL}{20}
 \newcommand{\scNamedIouSeventyOWL}{5}
 \newcommand{\scFoundIouSeventyOWL}{31}
-\newcommand{\scObjectsHundred}{110}
-\newcommand{\bPQwenVL}{0.376}
-\newcommand{\bRQwenVL}{0.363}
-\newcommand{\bPciQwenVL}{[0.294, 0.473]}
-\newcommand{\bRciQwenVL}{[0.296, 0.428]}
-\newcommand{\bBoxesQwenVL}{11.3}
-\newcommand{\bPGD}{0.259}
-\newcommand{\bRGD}{0.251}
-\newcommand{\bPciGD}{[0.199, 0.326]}
-\newcommand{\bRciGD}{[0.202, 0.306]}
-\newcommand{\bBoxesGD}{11.3}
-\newcommand{\bPOWL}{0.408}
-\newcommand{\bROWL}{0.336}
-\newcommand{\bPciOWL}{[0.330, 0.503]}
-\newcommand{\bRciOWL}{[0.282, 0.389]}
-\newcommand{\bBoxesOWL}{9.6}
-\newcommand{\bPYoloN}{0.613}
-\newcommand{\bRYoloN}{0.569}
-\newcommand{\bPciYoloN}{[0.513, 0.725]}
-\newcommand{\bRciYoloN}{[0.480, 0.660]}
-\newcommand{\bBoxesYoloN}{10.8}
-\newcommand{\bdPGD}{+0.116}
-\newcommand{\bdciPGD}{[0.073, 0.168]}
-\newcommand{\bdRGD}{+0.112}
-\newcommand{\bdciRGD}{[0.075, 0.153]}
-\newcommand{\bdPOWL}{$-$0.033}
-\newcommand{\bdciPOWL}{[$-$0.089, 0.019]}
-\newcommand{\bdROWL}{+0.027}
-\newcommand{\bdciROWL}{[$-$0.017, 0.080]}
+\newcommand{\bPQwenVL}{0.349}
+\newcommand{\bRQwenVL}{0.402}
+\newcommand{\bPciQwenVL}{[0.327, 0.374]}
+\newcommand{\bRciQwenVL}{[0.382, 0.424]}
+\newcommand{\bBoxesQwenVL}{10.9}
+\newcommand{\bPGD}{0.236}
+\newcommand{\bRGD}{0.273}
+\newcommand{\bPciGD}{[0.220, 0.252]}
+\newcommand{\bRciGD}{[0.256, 0.289]}
+\newcommand{\bBoxesGD}{10.9}
+\newcommand{\bPOWL}{0.349}
+\newcommand{\bROWL}{0.341}
+\newcommand{\bPciOWL}{[0.323, 0.377]}
+\newcommand{\bRciOWL}{[0.321, 0.360]}
+\newcommand{\bBoxesOWL}{9.2}
+\newcommand{\bPYoloN}{0.558}
+\newcommand{\bRYoloN}{0.624}
+\newcommand{\bPciYoloN}{[0.525, 0.591]}
+\newcommand{\bRciYoloN}{[0.594, 0.653]}
+\newcommand{\bBoxesYoloN}{10.6}
+\newcommand{\bdPGD}{+0.112}
+\newcommand{\bdciPGD}{[0.099, 0.127]}
+\newcommand{\bdRGD}{+0.130}
+\newcommand{\bdciRGD}{[0.117, 0.144]}
+\newcommand{\bdPOWL}{$-$0.001}
+\newcommand{\bdciPOWL}{[$-$0.016, 0.016]}
+\newcommand{\bdROWL}{+0.061}
+\newcommand{\bdciROWL}{[0.048, 0.076]}
 \newcommand{\nRepQThree}{1{,}111}
 \newcommand{\nEmptyQThree}{1{,}111}
 \newcommand{\nCutQThree}{0}
@@ -205,9 +212,9 @@
 \newcommand{\nRepQSevenNoEmpty}{100}
 \newcommand{\nEmptyQSevenNoEmpty}{0}
 \newcommand{\nCutQSevenNoEmpty}{18}
-\newcommand{\nRepQwenVL}{100}
-\newcommand{\nEmptyQwenVL}{17}
-\newcommand{\nCutQwenVL}{19}
+\newcommand{\nRepQwenVL}{1{,}111}
+\newcommand{\nEmptyQwenVL}{177}
+\newcommand{\nCutQwenVL}{229}
 \newcommand{\nRepQSevenLow}{1{,}111}
 \newcommand{\nEmptyQSevenLow}{1{,}017}
 \newcommand{\nCutQSevenLow}{6}
@@ -215,7 +222,9 @@
 \newcommand{\nUnmatchedText}{4{,}633}
 \newcommand{\nBoxesText}{14{,}427}
 \newcommand{\pctUnmatchedText}{32}
-\newcommand{\nOutsideQwenVL}{53}
+\newcommand{\nOutsideQwenVL}{374}
+\newcommand{\secQwenVLmean}{15.8}
+\newcommand{\secQwenVLmedian}{7.9}
 \newcommand{\nImagesWithObjects}{1{,}100}
 \newcommand{\lossNamingGD}{10}
 \newcommand{\lossNamingOWL}{12}
@@ -224,15 +233,14 @@
 \newcommand{\namedOfFoundMaxYoloN}{100}
 \newcommand{\trainMinMinutes}{27}
 \newcommand{\trainMaxMinutes}{155}
-\newcommand{\secQwenVL}{15.9}
 \newcommand{\secOWL}{0.3}
 \newcommand{\secQSeven}{0.6}
-\newcommand{\gtbPGD}{0.298}
-\newcommand{\gtbRGD}{0.298}
-\newcommand{\gtbPOWL}{0.424}
-\newcommand{\gtbROWL}{0.386}
-\newcommand{\gtbPYoloN}{0.830}
-\newcommand{\gtbRYoloN}{0.830}
+\newcommand{\gtbPGD}{0.299}
+\newcommand{\gtbRGD}{0.299}
+\newcommand{\gtbPOWL}{0.429}
+\newcommand{\gtbROWL}{0.384}
+\newcommand{\gtbPYoloN}{0.861}
+\newcommand{\gtbRYoloN}{0.861}
 \newcommand{\nCrops}{1{,}117}
 \newcommand{\nCropsScallop}{217}
 \newcommand{\nCropsOther}{300}
@@ -294,3 +302,429 @@
 \newcommand{\cropdciQSeven}{[12, 18]}
 \newcommand{\msYoloMin}{10}
 \newcommand{\msYoloMax}{21}
+\newcommand{\rApYoloEightN}{0.582}
+\newcommand{\rApciYoloEightN}{[0.573, 0.594]}
+\newcommand{\rSeaYoloEightN}{0.481}
+\newcommand{\rSeaciYoloEightN}{[0.469, 0.492]}
+\newcommand{\rOthYoloEightN}{0.650}
+\newcommand{\rOthciYoloEightN}{[0.635, 0.669]}
+\newcommand{\rFoundSeaYoloEightN}{96}
+\newcommand{\rNamedSeaYoloEightN}{94}
+\newcommand{\rFoundciSeaYoloEightN}{[95, 96]}
+\newcommand{\rNamedciSeaYoloEightN}{[94, 95]}
+\newcommand{\rFoundOthYoloEightN}{95}
+\newcommand{\rNamedOthYoloEightN}{94}
+\newcommand{\rFoundciOthYoloEightN}{[92, 96]}
+\newcommand{\rNamedciOthYoloEightN}{[91, 96]}
+\newcommand{\rDedupYoloEightN}{0.580}
+\newcommand{\rApYoloN}{0.581}
+\newcommand{\rApciYoloN}{[0.572, 0.594]}
+\newcommand{\rSeaYoloN}{0.472}
+\newcommand{\rSeaciYoloN}{[0.461, 0.483]}
+\newcommand{\rOthYoloN}{0.654}
+\newcommand{\rOthciYoloN}{[0.640, 0.675]}
+\newcommand{\rFoundSeaYoloN}{95}
+\newcommand{\rNamedSeaYoloN}{94}
+\newcommand{\rFoundciSeaYoloN}{[95, 96]}
+\newcommand{\rNamedciSeaYoloN}{[93, 95]}
+\newcommand{\rFoundOthYoloN}{94}
+\newcommand{\rNamedOthYoloN}{93}
+\newcommand{\rFoundciOthYoloN}{[92, 96]}
+\newcommand{\rNamedciOthYoloN}{[91, 95]}
+\newcommand{\rDedupYoloN}{0.579}
+\newcommand{\rApYoloS}{0.618}
+\newcommand{\rApciYoloS}{[0.606, 0.631]}
+\newcommand{\rSeaYoloS}{0.517}
+\newcommand{\rSeaciYoloS}{[0.505, 0.528]}
+\newcommand{\rOthYoloS}{0.685}
+\newcommand{\rOthciYoloS}{[0.668, 0.706]}
+\newcommand{\rFoundSeaYoloS}{96}
+\newcommand{\rNamedSeaYoloS}{95}
+\newcommand{\rFoundciSeaYoloS}{[96, 97]}
+\newcommand{\rNamedciSeaYoloS}{[95, 96]}
+\newcommand{\rFoundOthYoloS}{95}
+\newcommand{\rNamedOthYoloS}{94}
+\newcommand{\rFoundciOthYoloS}{[92, 96]}
+\newcommand{\rNamedciOthYoloS}{[91, 96]}
+\newcommand{\rDedupYoloS}{0.615}
+\newcommand{\rApYoloM}{0.634}
+\newcommand{\rApciYoloM}{[0.624, 0.647]}
+\newcommand{\rSeaYoloM}{0.534}
+\newcommand{\rSeaciYoloM}{[0.523, 0.545]}
+\newcommand{\rOthYoloM}{0.700}
+\newcommand{\rOthciYoloM}{[0.685, 0.720]}
+\newcommand{\rFoundSeaYoloM}{97}
+\newcommand{\rNamedSeaYoloM}{95}
+\newcommand{\rFoundciSeaYoloM}{[96, 97]}
+\newcommand{\rNamedciSeaYoloM}{[95, 96]}
+\newcommand{\rFoundOthYoloM}{95}
+\newcommand{\rNamedOthYoloM}{94}
+\newcommand{\rFoundciOthYoloM}{[93, 97]}
+\newcommand{\rNamedciOthYoloM}{[92, 96]}
+\newcommand{\rDedupYoloM}{0.632}
+\newcommand{\rApYoloL}{0.636}
+\newcommand{\rApciYoloL}{[0.626, 0.648]}
+\newcommand{\rSeaYoloL}{0.532}
+\newcommand{\rSeaciYoloL}{[0.520, 0.543]}
+\newcommand{\rOthYoloL}{0.705}
+\newcommand{\rOthciYoloL}{[0.691, 0.723]}
+\newcommand{\rFoundSeaYoloL}{97}
+\newcommand{\rNamedSeaYoloL}{96}
+\newcommand{\rFoundciSeaYoloL}{[96, 97]}
+\newcommand{\rNamedciSeaYoloL}{[95, 96]}
+\newcommand{\rFoundOthYoloL}{95}
+\newcommand{\rNamedOthYoloL}{95}
+\newcommand{\rFoundciOthYoloL}{[93, 97]}
+\newcommand{\rNamedciOthYoloL}{[92, 96]}
+\newcommand{\rDedupYoloL}{0.634}
+\newcommand{\rApRtdetr}{0.643}
+\newcommand{\rApciRtdetr}{[0.633, 0.657]}
+\newcommand{\rSeaRtdetr}{0.539}
+\newcommand{\rSeaciRtdetr}{[0.527, 0.551]}
+\newcommand{\rOthRtdetr}{0.713}
+\newcommand{\rOthciRtdetr}{[0.696, 0.734]}
+\newcommand{\rFoundSeaRtdetr}{96}
+\newcommand{\rNamedSeaRtdetr}{95}
+\newcommand{\rFoundciSeaRtdetr}{[96, 97]}
+\newcommand{\rNamedciSeaRtdetr}{[95, 96]}
+\newcommand{\rFoundOthRtdetr}{95}
+\newcommand{\rNamedOthRtdetr}{95}
+\newcommand{\rFoundciOthRtdetr}{[92, 97]}
+\newcommand{\rNamedciOthRtdetr}{[92, 97]}
+\newcommand{\rDedupRtdetr}{0.642}
+\newcommand{\rApGD}{0.315}
+\newcommand{\rApciGD}{[0.308, 0.325]}
+\newcommand{\rSeaGD}{0.044}
+\newcommand{\rSeaciGD}{[0.038, 0.051]}
+\newcommand{\rOthGD}{0.495}
+\newcommand{\rOthciGD}{[0.484, 0.511]}
+\newcommand{\rFoundSeaGD}{73}
+\newcommand{\rNamedSeaGD}{18}
+\newcommand{\rFoundciSeaGD}{[72, 75]}
+\newcommand{\rNamedciSeaGD}{[17, 19]}
+\newcommand{\rFoundOthGD}{94}
+\newcommand{\rNamedOthGD}{92}
+\newcommand{\rFoundciOthGD}{[92, 95]}
+\newcommand{\rNamedciOthGD}{[91, 94]}
+\newcommand{\rApOWL}{0.273}
+\newcommand{\rApciOWL}{[0.264, 0.283]}
+\newcommand{\rSeaOWL}{0.064}
+\newcommand{\rSeaciOWL}{[0.057, 0.073]}
+\newcommand{\rOthOWL}{0.411}
+\newcommand{\rOthciOWL}{[0.399, 0.428]}
+\newcommand{\rFoundSeaOWL}{76}
+\newcommand{\rNamedSeaOWL}{22}
+\newcommand{\rFoundciSeaOWL}{[75, 77]}
+\newcommand{\rNamedciSeaOWL}{[20, 24]}
+\newcommand{\rFoundOthOWL}{94}
+\newcommand{\rNamedOthOWL}{86}
+\newcommand{\rFoundciOthOWL}{[92, 95]}
+\newcommand{\rNamedciOthOWL}{[84, 87]}
+\newcommand{\rApQThree}{0.001}
+\newcommand{\rApciQThree}{[0.000, 0.002]}
+\newcommand{\rSeaQThree}{0.000}
+\newcommand{\rSeaciQThree}{[0.000, 0.000]}
+\newcommand{\rOthQThree}{0.002}
+\newcommand{\rOthciQThree}{[0.000, 0.003]}
+\newcommand{\rFoundSeaQThree}{0}
+\newcommand{\rNamedSeaQThree}{0}
+\newcommand{\rFoundciSeaQThree}{[0, 0]}
+\newcommand{\rNamedciSeaQThree}{[0, 0]}
+\newcommand{\rFoundOthQThree}{0}
+\newcommand{\rNamedOthQThree}{0}
+\newcommand{\rFoundciOthQThree}{[0, 0]}
+\newcommand{\rNamedciOthQThree}{[0, 0]}
+\newcommand{\rApQSeven}{0.126}
+\newcommand{\rApciQSeven}{[0.115, 0.146]}
+\newcommand{\rSeaQSeven}{0.004}
+\newcommand{\rSeaciQSeven}{[0.002, 0.010]}
+\newcommand{\rOthQSeven}{0.207}
+\newcommand{\rOthciQSeven}{[0.189, 0.239]}
+\newcommand{\rFoundSeaQSeven}{8}
+\newcommand{\rNamedSeaQSeven}{6}
+\newcommand{\rFoundciSeaQSeven}{[5, 11]}
+\newcommand{\rNamedciSeaQSeven}{[4, 9]}
+\newcommand{\rFoundOthQSeven}{47}
+\newcommand{\rNamedOthQSeven}{42}
+\newcommand{\rFoundciOthQSeven}{[44, 50]}
+\newcommand{\rNamedciOthQSeven}{[39, 45]}
+\newcommand{\rApQwenVL}{0.275}
+\newcommand{\rApciQwenVL}{[0.269, 0.302]}
+\newcommand{\rSeaQwenVL}{0.072}
+\newcommand{\rSeaciQwenVL}{[0.064, 0.095]}
+\newcommand{\rOthQwenVL}{0.411}
+\newcommand{\rOthciQwenVL}{[0.397, 0.450]}
+\newcommand{\rFoundSeaQwenVL}{41}
+\newcommand{\rNamedSeaQwenVL}{38}
+\newcommand{\rFoundciSeaQwenVL}{[37, 46]}
+\newcommand{\rNamedciSeaQwenVL}{[34, 42]}
+\newcommand{\rFoundOthQwenVL}{75}
+\newcommand{\rNamedOthQwenVL}{74}
+\newcommand{\rFoundciOthQwenVL}{[71, 78]}
+\newcommand{\rNamedciOthQwenVL}{[70, 77]}
+\newcommand{\rbPGD}{0.265}
+\newcommand{\rbRGD}{0.338}
+\newcommand{\rbBoxesGD}{6.9}
+\newcommand{\rbPOWL}{0.321}
+\newcommand{\rbROWL}{0.409}
+\newcommand{\rbBoxesOWL}{6.9}
+\newcommand{\rbPQwenVL}{0.442}
+\newcommand{\rbRQwenVL}{0.564}
+\newcommand{\rbBoxesQwenVL}{6.9}
+\newcommand{\rbPYoloN}{0.516}
+\newcommand{\rbRYoloN}{0.652}
+\newcommand{\rbBoxesYoloN}{6.8}
+\newcommand{\rbdPGD}{+0.177}
+\newcommand{\rbdciPGD}{[0.151, 0.205]}
+\newcommand{\rbdRGD}{+0.226}
+\newcommand{\rbdciRGD}{[0.201, 0.253]}
+\newcommand{\rbdPOWL}{+0.121}
+\newcommand{\rbdciPOWL}{[0.103, 0.140]}
+\newcommand{\rbdROWL}{+0.155}
+\newcommand{\rbdciROWL}{[0.135, 0.174]}
+\newcommand{\rdGap}{+0.267}
+\newcommand{\rdciGap}{[0.259, 0.275]}
+\newcommand{\rGapWeakest}{YOLO11n}
+\newcommand{\rGapBest}{Grounding DINO}
+\newcommand{\rdOwlGd}{$-$0.042}
+\newcommand{\rdciOwlGd}{[$-$0.049, $-$0.035]}
+\newcommand{\rdGdQwen}{+0.061}
+\newcommand{\rdciGdQwen}{[0.036, 0.070]}
+\newcommand{\rdOwlQwen}{+0.009}
+\newcommand{\rdciOwlQwen}{[$-$0.017, 0.019]}
+\newcommand{\rdQwenGen}{+0.149}
+\newcommand{\rdciQwenGen}{[0.136, 0.173]}
+\newcommand{\rSeaGapYoloEightN}{0.170}
+\newcommand{\rSeaGapYoloN}{0.182}
+\newcommand{\rSeaGapYoloS}{0.168}
+\newcommand{\rSeaGapYoloM}{0.166}
+\newcommand{\rSeaGapYoloL}{0.173}
+\newcommand{\rSeaGapRtdetr}{0.174}
+\newcommand{\rSeaGapGD}{0.451}
+\newcommand{\rSeaGapOWL}{0.347}
+\newcommand{\rSeaGapQThree}{0.002}
+\newcommand{\rSeaGapQSeven}{0.203}
+\newcommand{\rSeaGapQwenVL}{0.338}
+\newcommand{\rTestImages}{4{,}200}
+\newcommand{\rTestObjects}{22{,}969}
+\newcommand{\rSubset}{1{,}000}
+\newcommand{\rDupImages}{349}
+\newcommand{\rDupAnn}{1{,}143}
+\newcommand{\rCrops}{2{,}999}
+\newcommand{\rCropGD}{36}
+\newcommand{\rCropciGD}{[35, 37]}
+\newcommand{\rCropSeaGD}{1}
+\newcommand{\rCropSeaciGD}{[1, 2]}
+\newcommand{\rCropOthGD}{59}
+\newcommand{\rCropOthciGD}{[58, 61]}
+\newcommand{\dlDuoLabGD}{sea urchin}
+\newcommand{\dlDuoGD}{95}
+\newcommand{\dlDuociGD}{[94, 96]}
+\newcommand{\dlDuoCorGD}{30}
+\newcommand{\dlRuodLabGD}{fish}
+\newcommand{\dlRuodGD}{76}
+\newcommand{\dlRuodciGD}{[74, 79]}
+\newcommand{\dlRuodCorGD}{1}
+\newcommand{\rCropOWL}{44}
+\newcommand{\rCropciOWL}{[42, 45]}
+\newcommand{\rCropSeaOWL}{4}
+\newcommand{\rCropSeaciOWL}{[3, 5]}
+\newcommand{\rCropOthOWL}{70}
+\newcommand{\rCropOthciOWL}{[68, 72]}
+\newcommand{\dlDuoLabOWL}{starfish}
+\newcommand{\dlDuoOWL}{91}
+\newcommand{\dlDuociOWL}{[89, 92]}
+\newcommand{\dlDuoCorOWL}{27}
+\newcommand{\dlRuodLabOWL}{jellyfish}
+\newcommand{\dlRuodOWL}{65}
+\newcommand{\dlRuodciOWL}{[62, 68]}
+\newcommand{\dlRuodCorOWL}{4}
+\newcommand{\rCropQThree}{52}
+\newcommand{\rCropciQThree}{[51, 54]}
+\newcommand{\rCropSeaQThree}{34}
+\newcommand{\rCropSeaciQThree}{[32, 36]}
+\newcommand{\rCropOthQThree}{64}
+\newcommand{\rCropOthciQThree}{[62, 66]}
+\newcommand{\dlDuoLabQThree}{sea urchin}
+\newcommand{\dlDuoQThree}{57}
+\newcommand{\dlDuociQThree}{[54, 60]}
+\newcommand{\dlDuoCorQThree}{35}
+\newcommand{\dlRuodLabQThree}{sea urchin}
+\newcommand{\dlRuodQThree}{73}
+\newcommand{\dlRuodciQThree}{[71, 76]}
+\newcommand{\dlRuodCorQThree}{34}
+\newcommand{\rCropQSeven}{60}
+\newcommand{\rCropciQSeven}{[59, 62]}
+\newcommand{\rCropSeaQSeven}{36}
+\newcommand{\rCropSeaciQSeven}{[34, 38]}
+\newcommand{\rCropOthQSeven}{76}
+\newcommand{\rCropOthciQSeven}{[74, 78]}
+\newcommand{\dlDuoLabQSeven}{sea cucumber}
+\newcommand{\dlDuoQSeven}{59}
+\newcommand{\dlDuociQSeven}{[57, 62]}
+\newcommand{\dlDuoCorQSeven}{34}
+\newcommand{\dlRuodLabQSeven}{sea cucumber}
+\newcommand{\dlRuodQSeven}{54}
+\newcommand{\dlRuodciQSeven}{[51, 57]}
+\newcommand{\dlRuodCorQSeven}{36}
+\newcommand{\rCropQwenVL}{71}
+\newcommand{\rCropciQwenVL}{[70, 73]}
+\newcommand{\rCropSeaQwenVL}{48}
+\newcommand{\rCropSeaciQwenVL}{[46, 51]}
+\newcommand{\rCropOthQwenVL}{87}
+\newcommand{\rCropOthciQwenVL}{[85, 88]}
+\newcommand{\dlDuoLabQwenVL}{sea cucumber}
+\newcommand{\dlDuoQwenVL}{52}
+\newcommand{\dlDuociQwenVL}{[49, 55]}
+\newcommand{\dlDuoCorQwenVL}{50}
+\newcommand{\dlRuodLabQwenVL}{sea cucumber}
+\newcommand{\dlRuodQwenVL}{45}
+\newcommand{\dlRuodciQwenVL}{[42, 48]}
+\newcommand{\dlRuodCorQwenVL}{48}
+\newcommand{\rCropGDlatin}{36}
+\newcommand{\rCropciGDlatin}{[35, 37]}
+\newcommand{\rCropSeaGDlatin}{2}
+\newcommand{\rCropSeaciGDlatin}{[1, 2]}
+\newcommand{\rCropOthGDlatin}{59}
+\newcommand{\rCropOthciGDlatin}{[58, 61]}
+\newcommand{\dlDuoLabGDlatin}{holothurian}
+\newcommand{\dlDuoGDlatin}{88}
+\newcommand{\dlDuociGDlatin}{[86, 90]}
+\newcommand{\dlDuoCorGDlatin}{30}
+\newcommand{\dlRuodLabGDlatin}{fish}
+\newcommand{\dlRuodGDlatin}{77}
+\newcommand{\dlRuodciGDlatin}{[75, 80]}
+\newcommand{\dlRuodCorGDlatin}{2}
+\newcommand{\rCropOWLlatin}{44}
+\newcommand{\rCropciOWLlatin}{[42, 45]}
+\newcommand{\rCropSeaOWLlatin}{4}
+\newcommand{\rCropSeaciOWLlatin}{[3, 5]}
+\newcommand{\rCropOthOWLlatin}{70}
+\newcommand{\rCropOthciOWLlatin}{[68, 72]}
+\newcommand{\dlDuoLabOWLlatin}{starfish}
+\newcommand{\dlDuoOWLlatin}{65}
+\newcommand{\dlDuociOWLlatin}{[62, 67]}
+\newcommand{\dlDuoCorOWLlatin}{30}
+\newcommand{\dlRuodLabOWLlatin}{jellyfish}
+\newcommand{\dlRuodOWLlatin}{60}
+\newcommand{\dlRuodciOWLlatin}{[57, 62]}
+\newcommand{\dlRuodCorOWLlatin}{4}
+\newcommand{\rCropScalMax}{12}
+\newcommand{\rCropCuttleGD}{0}
+\newcommand{\rCropFishOWL}{47}
+\newcommand{\rFoundSeaLabGD}{fish}
+\newcommand{\rFoundSeaLabShareGD}{55}
+\newcommand{\rFoundSeaLabOWL}{fish}
+\newcommand{\rFoundSeaLabShareOWL}{35}
+\newcommand{\dPromptQwen}{$-$0.006}
+\newcommand{\dciPromptQwen}{[$-$0.023, 0.002]}
+\newcommand{\dSingleThree}{+0.000}
+\newcommand{\dciSingleThree}{[0.000, 0.000]}
+\newcommand{\dSingleSeven}{+0.018}
+\newcommand{\dciSingleSeven}{[0.001, 0.062]}
+\newcommand{\dSingleQwen}{+0.010}
+\newcommand{\dciSingleQwen}{[$-$0.004, 0.026]}
+\newcommand{\apHQThreeSingle}{0.000}
+\newcommand{\apHQSevenSingle}{0.036}
+\newcommand{\apHQwenVLSingle}{0.064}
+\newcommand{\apHQwenVLNoEmpty}{0.048}
+\newcommand{\apHQwenVLHund}{0.054}
+\newcommand{\rApSubGD}{0.336}
+\newcommand{\rApSubOWL}{0.284}
+\newcommand{\rDedupMax}{0.003}
+\newcommand{\rCropFishGD}{94}
+\newcommand{\cropMaxHalf}{6}
+\newcommand{\rSeaImages}{1{,}255}
+\newcommand{\rMixedImages}{11}
+\newcommand{\rBigSeaGD}{1}
+\newcommand{\rBigOthGD}{58}
+\newcommand{\rBigSeaOWL}{7}
+\newcommand{\rBigOthOWL}{78}
+\newcommand{\rApWeakest}{0.581}
+\newcommand{\calDuoRawGD}{28}
+\newcommand{\calDuoGD}{27}
+\newcommand{\calDuociGD}{[24, 30]}
+\newcommand{\calDuoTopGD}{39}
+\newcommand{\calDuoTopLabGD}{scallop}
+\newcommand{\calDuoRawOWL}{26}
+\newcommand{\calDuoOWL}{27}
+\newcommand{\calDuociOWL}{[25, 29]}
+\newcommand{\calDuoTopOWL}{78}
+\newcommand{\calDuoTopLabOWL}{scallop}
+\newcommand{\calRuodRawGD}{1}
+\newcommand{\calRuodGD}{21}
+\newcommand{\calRuodciGD}{[19, 23]}
+\newcommand{\calRuodTopGD}{26}
+\newcommand{\calRuodTopLabGD}{starfish}
+\newcommand{\calRuodOthRawGD}{59}
+\newcommand{\calRuodOthGD}{68}
+\newcommand{\calRuodRawOWL}{4}
+\newcommand{\calRuodOWL}{7}
+\newcommand{\calRuodciOWL}{[6, 9]}
+\newcommand{\calRuodTopOWL}{66}
+\newcommand{\calRuodTopLabOWL}{diver}
+\newcommand{\calRuodOthRawOWL}{70}
+\newcommand{\calRuodOthOWL}{54}
+\newcommand{\keepTightGD}{71}
+\newcommand{\keepTightOWL}{63}
+\newcommand{\keepTightYoloN}{92}
+\newcommand{\keepTightQwenVL}{57}
+\newcommand{\btdPGD}{+0.031}
+\newcommand{\btdciPGD}{[0.022, 0.042]}
+\newcommand{\btdRGD}{+0.036}
+\newcommand{\btdciRGD}{[0.025, 0.048]}
+\newcommand{\btdPOWL}{$-$0.022}
+\newcommand{\btdciPOWL}{[$-$0.034, $-$0.009]}
+\newcommand{\btdROWL}{+0.014}
+\newcommand{\btdciROWL}{[0.004, 0.025]}
+\newcommand{\vTopLabGDfour}{sea urchin}
+\newcommand{\vTopGDfour}{96}
+\newcommand{\vTopciGDfour}{[93, 98]}
+\newcommand{\vAccGDfour}{28}
+\newcommand{\vAccciGDfour}{[26, 31]}
+\newcommand{\vTopLabOWLfour}{starfish}
+\newcommand{\vTopOWLfour}{92}
+\newcommand{\vTopciOWLfour}{[88, 95]}
+\newcommand{\vAccOWLfour}{26}
+\newcommand{\vAccciOWLfour}{[24, 29]}
+\newcommand{\vTopLabGDlatinfour}{sea cucumber}
+\newcommand{\vTopGDlatinfour}{87}
+\newcommand{\vTopciGDlatinfour}{[82, 91]}
+\newcommand{\vAccGDlatinfour}{31}
+\newcommand{\vAccciGDlatinfour}{[27, 36]}
+\newcommand{\vTopLabGDten}{fish}
+\newcommand{\vTopGDten}{80}
+\newcommand{\vTopciGDten}{[75, 85]}
+\newcommand{\vAccGDten}{1}
+\newcommand{\vAccciGDten}{[0, 3]}
+\newcommand{\vCovGDten}{46}
+\newcommand{\vCovciGDten}{[40, 51]}
+\newcommand{\vCovTopGDten}{61}
+\newcommand{\vCovCorGDten}{2}
+\newcommand{\vCovCorciGDten}{[0, 5]}
+\newcommand{\vTopLabOWLten}{jellyfish}
+\newcommand{\vTopOWLten}{82}
+\newcommand{\vTopciOWLten}{[78, 87]}
+\newcommand{\vAccOWLten}{2}
+\newcommand{\vAccciOWLten}{[0, 4]}
+\newcommand{\vCovOWLten}{30}
+\newcommand{\vCovciOWLten}{[24, 35]}
+\newcommand{\vCovTopOWLten}{85}
+\newcommand{\vCovCorOWLten}{4}
+\newcommand{\vCovCorciOWLten}{[0, 9]}
+\newcommand{\vTopLabGDrev}{sea urchin}
+\newcommand{\vTopGDrev}{96}
+\newcommand{\vTopciGDrev}{[93, 98]}
+\newcommand{\vAccGDrev}{28}
+\newcommand{\vAccciGDrev}{[26, 31]}
+\newcommand{\vCovGDrev}{66}
+\newcommand{\vCovciGDrev}{[60, 72]}
+\newcommand{\vCovTopGDrev}{97}
+\newcommand{\vCovCorGDrev}{31}
+\newcommand{\vCovCorciGDrev}{[27, 36]}
+\newcommand{\vCrops}{240}
+\newcommand{\vRevSame}{240}
+\newcommand{\vRevN}{240}
+\newcommand{\vReproCrops}{20}
+\newcommand{\vReproSame}{all}
+\newcommand{\vReproDiff}{0.001}

@@ -1,0 +1,197 @@
+{
+ "gdino_duo4rev": {
+  "crops": 240,
+  "top": "sea urchin",
+  "top_share": 0.9583333333333334,
+  "top_ci": [
+   0.9333333333333333,
+   0.9833333333333333
+  ],
+  "accuracy": 0.2833333333333334,
+  "accuracy_ci": [
+   0.2625,
+   0.30635416666666654
+  ],
+  "answers": {
+   "scallop": 2,
+   "sea urchin": 230,
+   "starfish": 8
+  },
+  "box_covers_object": 0.6625,
+  "box_covers_ci": [
+   0.6041666666666666,
+   0.7166666666666667
+  ],
+  "covered": {
+   "crops": 159,
+   "top_share": 0.9748427672955975,
+   "top_share_ci": [
+    0.9470414201183431,
+    0.9940476190476191
+   ],
+   "correct": 0.31446540880503143,
+   "correct_ci": [
+    0.2668633540372671,
+    0.35739120151371806
+   ]
+  }
+ },
+ "gdino_ruod10": {
+  "crops": 240,
+  "top": "fish",
+  "top_share": 0.8,
+  "top_ci": [
+   0.7458333333333333,
+   0.85
+  ],
+  "accuracy": 0.0125,
+  "accuracy_ci": [
+   0.0,
+   0.027187499999999906
+  ],
+  "answers": {
+   "corals": 40,
+   "fish": 192,
+   "jellyfish": 4,
+   "starfish": 3,
+   "turtle": 1
+  },
+  "box_covers_object": 0.4583333333333333,
+  "box_covers_ci": [
+   0.4,
+   0.5146875
+  ],
+  "covered": {
+   "crops": 110,
+   "top_share": 0.6090909090909091,
+   "top_share_ci": [
+    0.5140104849279161,
+    0.6995388349514563
+   ],
+   "correct": 0.01818181818181818,
+   "correct_ci": [
+    0.0,
+    0.0472088099836577
+   ]
+  }
+ },
+ "owlv2_ruod10": {
+  "crops": 240,
+  "top": "jellyfish",
+  "top_share": 0.825,
+  "top_ci": [
+   0.775,
+   0.8708333333333333
+  ],
+  "accuracy": 0.016666666666666666,
+  "accuracy_ci": [
+   0.004166666666666667,
+   0.0375
+  ],
+  "answers": {
+   "cuttlefish": 1,
+   "fish": 30,
+   "jellyfish": 198,
+   "sea urchin": 2,
+   "starfish": 3,
+   "turtle": 6
+  },
+  "box_covers_object": 0.29583333333333334,
+  "box_covers_ci": [
+   0.24166666666666667,
+   0.3541666666666667
+  ],
+  "covered": {
+   "crops": 71,
+   "top_share": 0.8450704225352113,
+   "top_share_ci": [
+    0.7612005365526492,
+    0.9292293233082707
+   ],
+   "correct": 0.04225352112676056,
+   "correct_ci": [
+    0.0,
+    0.09493243243243242
+   ]
+  }
+ },
+ "gdino_duo4_gpu": {
+  "crops": 240,
+  "top": "sea urchin",
+  "top_share": 0.9583333333333334,
+  "top_ci": [
+   0.9333333333333333,
+   0.9833333333333333
+  ],
+  "accuracy": 0.2833333333333334,
+  "accuracy_ci": [
+   0.2625,
+   0.30635416666666654
+  ],
+  "answers": {
+   "scallop": 2,
+   "sea urchin": 230,
+   "starfish": 8
+  }
+ },
+ "owlv2_duo4_gpu": {
+  "crops": 240,
+  "top": "starfish",
+  "top_share": 0.9208333333333333,
+  "top_ci": [
+   0.8833333333333333,
+   0.9541666666666667
+  ],
+  "accuracy": 0.2625,
+  "accuracy_ci": [
+   0.2353125,
+   0.2875
+  ],
+  "answers": {
+   "scallop": 1,
+   "sea cucumber": 7,
+   "sea urchin": 11,
+   "starfish": 221
+  }
+ },
+ "gdinolatin_duo4_gpu": {
+  "crops": 240,
+  "top": "sea cucumber",
+  "top_share": 0.8666666666666667,
+  "top_ci": [
+   0.8208333333333333,
+   0.9125
+  ],
+  "accuracy": 0.3125,
+  "accuracy_ci": [
+   0.27083333333333337,
+   0.3563541666666665
+  ],
+  "answers": {
+   "scallop": 7,
+   "sea cucumber": 208,
+   "sea urchin": 7,
+   "starfish": 18
+  }
+ },
+ "owlv2latin_duo4_gpu": {
+  "crops": 240,
+  "top": "starfish",
+  "top_share": 0.6,
+  "top_ci": [
+   0.5416666666666666,
+   0.6625
+  ],
+  "accuracy": 0.25416666666666665,
+  "accuracy_ci": [
+   0.20416666666666666,
+   0.3
+  ],
+  "answers": {
+   "scallop": 1,
+   "sea cucumber": 84,
+   "sea urchin": 11,
+   "starfish": 144
+  }
+ }
+}

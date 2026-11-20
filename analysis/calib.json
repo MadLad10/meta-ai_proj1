@@ -1,0 +1,110 @@
+{
+ "duo:grounding-dino": {
+  "raw": {
+   "seafloor": 0.2769124423963134,
+   "seafloor_ci": [
+    0.2665638440860215,
+    0.28922638248847926
+   ],
+   "other": null,
+   "other_ci": null,
+   "top_answer_seafloor": "echinus",
+   "top_share_seafloor": 0.9507609668755596
+  },
+  "calibrated": {
+   "seafloor": 0.26988863287250386,
+   "seafloor_ci": [
+    0.24479425883256528,
+    0.2960967741935484
+   ],
+   "other": null,
+   "other_ci": null,
+   "top_answer_seafloor": "scallop",
+   "top_share_seafloor": 0.39212175470008953
+  }
+ },
+ "duo:owlv2": {
+  "raw": {
+   "seafloor": 0.25678955453149,
+   "seafloor_ci": [
+    0.2450583717357911,
+    0.26815341781874036
+   ],
+   "other": null,
+   "other_ci": null,
+   "top_answer_seafloor": "starfish",
+   "top_share_seafloor": 0.9086839749328559
+  },
+  "calibrated": {
+   "seafloor": 0.2685483870967742,
+   "seafloor_ci": [
+    0.25100326420890934,
+    0.2885351382488479
+   ],
+   "other": null,
+   "other_ci": null,
+   "top_answer_seafloor": "scallop",
+   "top_share_seafloor": 0.7761862130707251
+  }
+ },
+ "ruod:grounding-dino": {
+  "raw": {
+   "seafloor": 0.0125,
+   "seafloor_ci": [
+    0.006666666666666667,
+    0.019166666666666665
+   ],
+   "other": 0.5944091415830547,
+   "other_ci": [
+    0.5796707543664065,
+    0.6113717019695281
+   ],
+   "top_answer_seafloor": "fish",
+   "top_share_seafloor": 0.7641666666666667
+  },
+  "calibrated": {
+   "seafloor": 0.21,
+   "seafloor_ci": [
+    0.18833333333333332,
+    0.23377083333333332
+   ],
+   "other": 0.6758992939427722,
+   "other_ci": [
+    0.657770624303233,
+    0.6989882943143813
+   ],
+   "top_answer_seafloor": "starfish",
+   "top_share_seafloor": 0.25916666666666666
+  }
+ },
+ "ruod:owlv2": {
+  "raw": {
+   "seafloor": 0.03916666666666667,
+   "seafloor_ci": [
+    0.03,
+    0.05083333333333333
+   ],
+   "other": 0.6991527313266443,
+   "other_ci": [
+    0.6807986807878113,
+    0.719462281679673
+   ],
+   "top_answer_seafloor": "jellyfish",
+   "top_share_seafloor": 0.6508333333333334
+  },
+  "calibrated": {
+   "seafloor": 0.07416666666666667,
+   "seafloor_ci": [
+    0.06122916666666667,
+    0.09
+   ],
+   "other": 0.5352545522110739,
+   "other_ci": [
+    0.5116093459680416,
+    0.5583541434411
+   ],
+   "top_answer_seafloor": "diver",
+   "top_share_seafloor": 0.665
+  }
+ }
+}

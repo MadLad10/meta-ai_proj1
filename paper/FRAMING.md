@@ -26,14 +26,17 @@
 2. **Choices made while evaluating a model move its score by more than the differences between models.**
    - Turning Grounding DINO's output into labels with the standard Hugging Face phrase decoding, instead of its own scoring, costs 0.042 AP [0.032, 0.053]. That is about half its score.
    - The difference between Grounding DINO and OWLv2 is only +0.009 [−0.015, +0.031], not significant.
-3. **The VLMs' lower AP is partly a consequence of their having no confidence scores.** On the first 100 images, AP ranks Qwen3-VL-8B (0.054) below OWLv2 (0.107; difference +0.053 [0.017, 0.078]). But when each detector is cut to Qwen3-VL's own number of boxes per image, and every box is scored 1.0, Qwen3-VL's precision and recall at IoU 0.5 match or beat theirs:
+3. **The VLMs' lower AP is partly a consequence of their having no confidence scores.** On the first 100 images, AP ranks Qwen3-VL-8B (0.054) below OWLv2 (0.107; difference +0.053 [0.017, 0.078]). But when each detector keeps only as many distinct boxes as Qwen3-VL returned on each image, and every box counts equally, the picture changes (precision and recall at IoU 0.5 with the correct class; `analysis/e1.py`, corrected 19 Nov):
 
    | Model | Precision | Recall |
    |---|---|---|
-   | Qwen3-VL-8B | 0.32 | 0.37 |
-   | OWLv2 | 0.37 | 0.34 |
-   | Grounding DINO | 0.23 | 0.27 |
-   | YOLO11n (fine-tuned) | 0.54 | 0.59 |
+   | Qwen3-VL-8B | 0.38 | 0.36 |
+   | OWLv2 | 0.41 | 0.34 |
+   | Grounding DINO | 0.26 | 0.25 |
+   | YOLO11n (fine-tuned) | 0.61 | 0.57 |
+
+   - Qwen3-VL beats Grounding DINO: +0.116 [0.073, 0.168] in precision and +0.112 [0.075, 0.153] in recall.
+   - Qwen3-VL and OWLv2 cannot be told apart: precision −0.033 [−0.089, 0.019], recall +0.027 [−0.017, 0.080].
 4. **One prompt sentence decides whether Qwen2.5-VL answers at all, without changing what it can see.**
    - With "Answer [] if there are none", the 3B returns no boxes on 1,111 of 1,111 images and the 7B on 1,005 of 1,111.
    - Without the sentence, neither returns an empty answer (first 100 images).
@@ -213,7 +216,7 @@
 ### 6.2 Needs qualification
 - **Matched-budget comparison.**
   - 100 images and one way of setting the budget; no intervals yet.
-  - OWLv2 could fill only 10.7 of the 13.3 boxes per image.
+  - OWLv2 could fill only 9.6 of the 11.3 boxes per image.
   - Qwen3-VL had 19 cut-off replies out of 100.
 
   State it as "comparable at a matched budget", not "equal".
