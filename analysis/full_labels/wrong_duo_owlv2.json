@@ -1,0 +1,15 @@
+{
+ "objects": 10517,
+ "found": 0.6178568032708948,
+ "named_strict": 0.4929162308643149,
+ "misnamed_of_found": 0.20221606648199447,
+ "top_wrong": "starfish",
+ "top_wrong_share": 0.4748858447488584,
+ "top2_wrong_share": 0.8188736681887366,
+ "labels_of_found": {
+  "echinus": 4098,
+  "starfish": 1848,
+  "holothurian": 536,
+  "scallop": 16
+ }
+}

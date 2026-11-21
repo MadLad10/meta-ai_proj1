@@ -5,7 +5,7 @@
 \toprule
  & DUO & \multicolumn{3}{c}{RUOD} & \\
 \cmidrule(lr){2-2}\cmidrule(lr){3-5}
-Model & AP (95\% CI) & AP (95\% CI) & Seafloor-class AP & Other-class AP & ms per image \\
+Model & AP (95\% CI) & AP (95\% CI) & Picking-class AP & Other-class AP & ms per image \\
 \midrule
 \multicolumn{6}{l}{\textit{Fine-tuned on each benchmark}} \\
 YOLOv8n & 0.624 [0.593, 0.655] & 0.582 [0.573, 0.594] & 0.481 & 0.650 & 10 \\
@@ -25,6 +25,6 @@ Qwen2.5-VL-7B & 0.013 [0.009, 0.018] & 0.126 [0.115, 0.146]$^\dagger$ & 0.004 & 
 Qwen3-VL-8B & 0.048 [0.043, 0.056] & 0.275 [0.269, 0.302]$^\dagger$ & 0.072 & 0.411 & 15{,}810 \\
 \bottomrule
 \end{tabular}
-\caption{Detection results (COCO AP, pycocotools) on the DUO test set (\nTestImages{} images, four seafloor classes) and the RUOD test set (\rTestImages{} images, ten classes). Seafloor-class AP is the mean over RUOD's four seafloor classes (sea cucumber, sea urchin, scallop, starfish), other-class AP the mean over its six other classes. Intervals are 95\% paired bootstrap intervals over test images. $^\dagger$VLMs on RUOD: fixed random subset of \rSubset{} test images, on which the zero-shot detectors score \rApSubGD{} (Grounding DINO) and \rApSubOWL{} (OWLv2). VLM boxes carry no confidence score and are all scored 1.0. Time per image on one RTX 5090 (DUO): fine-tuned detectors, median over 200 images processed one at a time on an idle GPU; zero-shot models, wall-clock time over the run. $^\ddagger$Grounding DINO shared the GPU with another job.}
+\caption{Detection results (COCO AP, pycocotools) on the DUO test set (\nTestImages{} images, the four picking classes) and the RUOD test set (\rTestImages{} images, ten classes). Picking-class AP is the mean over RUOD's four picking classes (sea cucumber, sea urchin, scallop, starfish), other-class AP the mean over its six other classes. Intervals are 95\% paired bootstrap intervals over test images. $^\dagger$VLMs on RUOD: fixed random subset of \rSubset{} test images, on which the zero-shot detectors score \rApSubGD{} (Grounding DINO) and \rApSubOWL{} (OWLv2). VLM boxes carry no confidence score and are all scored 1.0; Qwen2.5-VL results use the prompt with ``Answer [] if there are none'', which makes them return empty lists (Section~\ref{sec:vlm}). Time per image on one RTX 5090 (DUO): fine-tuned detectors, median over 200 images processed one at a time on an idle GPU; zero-shot models, wall-clock time over the run. $^\ddagger$Grounding DINO shared the GPU with another job.}
 \label{tab:main}
 \end{table*}

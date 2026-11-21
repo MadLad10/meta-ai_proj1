@@ -1,0 +1,19 @@
+\begin{table*}[t]
+\centering
+\small
+\begin{tabular}{lcccc}
+\toprule
+Model & AP (95\% CI) & Precision (95\% CI) & Recall (95\% CI) & Boxes/image \\
+\midrule
+Qwen3-VL-8B & 0.048 [0.043, 0.056] & 0.349 [0.327, 0.374] & 0.402 [0.382, 0.424] & 10.9 \\
+OWLv2 & 0.099 [0.088, 0.111] & 0.349 [0.323, 0.377] & 0.341 [0.321, 0.360] & 9.2 \\
+Grounding DINO & 0.090 [0.067, 0.114] & 0.236 [0.220, 0.252] & 0.273 [0.256, 0.289] & 10.9 \\
+YOLO11n (fine-tuned) & 0.625 [0.595, 0.652] & 0.558 [0.525, 0.591] & 0.624 [0.594, 0.653] & 10.6 \\
+\midrule
+Qwen3-VL-8B $-$ OWLv2 & $-$0.051 [$-$0.061, $-$0.040] & $-$0.001 [$-$0.016, 0.016] & +0.061 [0.048, 0.076] & \\
+Qwen3-VL-8B $-$ G.\ DINO & $-$0.043 [$-$0.064, $-$0.016] & +0.112 [0.099, 0.127] & +0.130 [0.117, 0.144] & \\
+\bottomrule
+\end{tabular}
+\caption{Ranking by AP against ranking at a matched box budget (full test set). AP uses each model's full ranked output. For precision and recall (IoU $\geq$ 0.5, correct class), each detector keeps on every image only as many of its highest-scoring distinct boxes as Qwen3-VL-8B returned there, and all boxes count equally. The last two rows give Qwen3-VL-8B minus the detector, with 95\% paired bootstrap intervals.}
+\label{tab:budget}
+\end{table*}

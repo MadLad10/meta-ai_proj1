@@ -1,0 +1,24 @@
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{2.8pt}
+\begin{tabular}{lcccccc}
+\toprule
+ & & & \multicolumn{4}{c}{Label of best box (\%)} \\
+\cmidrule(lr){4-7}
+Model, names & Found & Named & Cuc. & Urch. & Scal. & Star. \\
+\midrule
+\multicolumn{7}{l}{Grounding DINO} \\
+\quad common & 61 & 4 & 0 & 87 & 4 & 9 \\
+\quad Latin & 52 & 34 & 27 & 15 & 13 & 46 \\
+\multicolumn{7}{l}{OWLv2} \\
+\quad common & 52 & 8 & 15 & 16 & 0 & 69 \\
+\quad Latin & 52 & 0 & 0 & 8 & 0 & 92 \\
+\midrule
+YOLO11n, fine-tuned & 97 & 96 & 97 & 1 & 1 & 1 \\
+Qwen3-VL-8B & 15 & 11 & 71 & 13 & 4 & 12 \\
+\bottomrule
+\end{tabular}
+\caption{What happens to the \nSeaCucumber{} sea cucumbers in the DUO test set. Found: \% of objects overlapped (IoU $\geq$ 0.5) by any of the image's 100 highest-scoring boxes, of any class. Named: \% overlapped by such a box with the correct class. The right block gives the class of the best-overlapping box, as \% of the found sea cucumbers.}
+\label{tab:seacucumber}
+\end{table}

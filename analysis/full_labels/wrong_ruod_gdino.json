@@ -1,0 +1,19 @@
+{
+ "objects": 10553,
+ "found": 0.7319245712119776,
+ "named_strict": 0.03761963422723396,
+ "misnamed_of_found": 0.9486017607457276,
+ "top_wrong": "fish",
+ "top_wrong_share": 0.5826395523406579,
+ "top2_wrong_share": 0.9197488740275692,
+ "labels_of_found": {
+  "fish": 4269,
+  "corals": 2470,
+  "echinus": 317,
+  "starfish": 237,
+  "jellyfish": 164,
+  "cuttlefish": 136,
+  "scallop": 115,
+  "turtle": 16
+ }
+}

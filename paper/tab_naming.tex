@@ -1,25 +1,25 @@
 \begin{table*}[t]
 \centering
 \small
-\setlength{\tabcolsep}{2.7pt}
-\begin{tabular}{lcccccccll}
+\setlength{\tabcolsep}{2.0pt}
+\begin{tabular}{lccccccccll}
 \toprule
- & \multicolumn{2}{c}{DUO, full images} & \multicolumn{2}{c}{RUOD seafloor, full} & \multicolumn{3}{c}{Named, box crop} & \multicolumn{2}{c}{Default answer, seafloor crops} \\
-\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-8}\cmidrule(lr){9-10}
-Model & Found & Named & Found & Named & DUO & RUOD sea. & RUOD other & DUO & RUOD \\
+ & \multicolumn{3}{c}{DUO, full images} & \multicolumn{2}{c}{RUOD picking, full} & \multicolumn{3}{c}{Named, box crop} & \multicolumn{2}{c}{Default answer, picking crops} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-6}\cmidrule(lr){7-9}\cmidrule(lr){10-11}
+Model & Found & Named & Strict & Found & Named & DUO & RUOD pick. & RUOD other & DUO & RUOD \\
 \midrule
-YOLO11n (fine-tuned) & 96 & 95 & 95 & 94 & -- & -- & -- & -- & -- \\
+YOLO11n (fine-t.) & 96 & 95 & 95 & 95 & 94 & -- & -- & -- & -- & -- \\
 \midrule
-Grounding DINO & 69 & 59 & 73 & 18 & 28 & 1 & 59 & sea urchin 95\% & fish 76\% \\
-\quad Latin names & -- & -- & -- & -- & 28 & 2 & 59 & holothurian 88\% & fish 77\% \\
-OWLv2 & 62 & 50 & 76 & 22 & 26 & 4 & 70 & starfish 91\% & jellyfish 65\% \\
-\quad Latin names & -- & -- & -- & -- & 28 & 4 & 70 & starfish 65\% & jellyfish 60\% \\
+Grounding DINO & 69 & 59 & 50 & 73 & 18 & 28 & 1 & 59 & sea urchin 95\% & fish 76\% \\
+\quad Latin names & -- & -- & -- & -- & -- & 28 & 2 & 59 & holothurian 88\% & fish 77\% \\
+OWLv2 & 62 & 50 & 49 & 76 & 22 & 26 & 4 & 70 & starfish 91\% & jellyfish 65\% \\
+\quad Latin names & -- & -- & -- & -- & -- & 28 & 4 & 70 & starfish 65\% & jellyfish 60\% \\
 \midrule
-Qwen2.5-VL-3B & 0 & 0 & 0 & 0 & 33 & 34 & 64 & sea urchin 57\% & sea urchin 73\% \\
-Qwen2.5-VL-7B & 3 & 3 & 8 & 6 & 33 & 36 & 76 & sea cucumber 59\% & sea cucumber 54\% \\
-Qwen3-VL-8B & 44 & 41 & 41 & 38 & 48 & 48 & 87 & sea cucumber 52\% & sea cucumber 45\% \\
+Qwen2.5-VL-3B & 0 & 0 & 0 & 0 & 0 & 33 & 34 & 64 & sea urchin 57\% & sea urchin 73\% \\
+Qwen2.5-VL-7B & 3 & 3 & 3 & 8 & 6 & 33 & 36 & 76 & sea cucumber 59\% & sea cucumber 54\% \\
+Qwen3-VL-8B & 44 & 41 & 40 & 41 & 38 & 48 & 48 & 87 & sea cucumber 52\% & sea cucumber 45\% \\
 \bottomrule
 \end{tabular}
-\caption{Finding and naming (\%). Found: share of true objects overlapped (IoU $\geq$ 0.5) by any of the image's 100 highest-scoring boxes, of any class; named: by such a box with the correct class (DUO: all objects; RUOD: the four seafloor classes; VLMs on RUOD: the \rSubset-image subset). Named, box crop: mean per-class accuracy when the model sees only the crop of a true box (chance 25\% on DUO, 10\% on RUOD; RUOD columns averaged over the four seafloor and the six other classes). Default answer: the answer a model gives most often for seafloor crops, and the share of seafloor crops that receive it. YOLO11n was not run on crops.}
+\caption{Finding and naming (\%). Found: share of true objects overlapped (IoU $\geq$ 0.5) by any of the image's 100 highest-scoring boxes, of any class; named: by such a box with the correct class; strict: the best-overlapping such box carries the correct class (DUO: all objects; RUOD: the four picking classes; VLMs on RUOD: the \rSubset-image subset). Named, box crop: mean per-class accuracy when the model sees only the crop of a true box (chance 25\% on DUO, 10\% on RUOD; RUOD columns averaged over the four picking and the six other classes). Default answer: the answer a model gives most often for picking-class crops, and the share of those crops that receive it. YOLO11n was not run on crops. Qwen2.5-VL full-image results use the prompt with ``Answer [] if there are none'', which makes them return empty lists (Section~\ref{sec:vlm}).}
 \label{tab:naming}
 \end{table*}

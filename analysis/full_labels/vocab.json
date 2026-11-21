@@ -1,0 +1,117 @@
+{
+ "gdino": {
+  "duo4": {
+   "objects": 2698,
+   "found": 0.6964418087472202,
+   "named_strict": 0.5011119347664937,
+   "misnamed_of_found": 0.28046833422032996,
+   "top_wrong": "echinus",
+   "top_wrong_share": 0.8519924098671727,
+   "top2_wrong_share": 0.9392789373814042,
+   "labels_of_found": {
+    "echinus": 1682,
+    "starfish": 144,
+    "scallop": 53
+   },
+   "tide": {
+    "ap50": 13.798834309468692,
+    "errors": {
+     "Cls": 19.50032028982667,
+     "Loc": 2.127670783687524,
+     "Both": 0.12305038742576713,
+     "Dupe": 0.264622995066496,
+     "Bkg": 5.617103319806446,
+     "Miss": 3.998516687351554
+    }
+   }
+  },
+  "ruod10": {
+   "objects": 2698,
+   "found": 0.6968124536693847,
+   "named_strict": 0.0340993328391401,
+   "misnamed_of_found": 0.951063829787234,
+   "top_wrong": "fish",
+   "top_wrong_share": 0.7164429530201343,
+   "top2_wrong_share": 0.9569351230425056,
+   "labels_of_found": {
+    "fish": 1281,
+    "corals": 430,
+    "echinus": 83,
+    "starfish": 31,
+    "jellyfish": 24,
+    "cuttlefish": 17,
+    "scallop": 14
+   },
+   "tide": {
+    "ap50": 9.24147095091084,
+    "errors": {
+     "Cls": 46.20044581814067,
+     "Loc": 1.1819332504821336,
+     "Both": 0.051052185995034804,
+     "Dupe": 0.5528417780372035,
+     "Bkg": 2.1051780767953474,
+     "Miss": 2.6098336222264944
+    }
+   }
+  }
+ },
+ "owlv2": {
+  "duo4": {
+   "objects": 2698,
+   "found": 0.5971089696071163,
+   "named_strict": 0.46404744255003705,
+   "misnamed_of_found": 0.2228429546865301,
+   "top_wrong": "starfish",
+   "top_wrong_share": 0.5041782729805014,
+   "top2_wrong_share": 0.8161559888579387,
+   "labels_of_found": {
+    "echinus": 984,
+    "starfish": 491,
+    "holothurian": 132,
+    "scallop": 4
+   },
+   "tide": {
+    "ap50": 17.70342862127425,
+    "errors": {
+     "Cls": 20.45135911727464,
+     "Loc": 2.981069537314063,
+     "Both": 0.19656692769752127,
+     "Dupe": 0.12381171054132878,
+     "Bkg": 4.723563330928471,
+     "Miss": 7.399829182838335
+    }
+   }
+  },
+  "ruod10": {
+   "objects": 2698,
+   "found": 0.6300963676797627,
+   "named_strict": 0.18346923647146035,
+   "misnamed_of_found": 0.7088235294117647,
+   "top_wrong": "fish",
+   "top_wrong_share": 0.8348547717842324,
+   "top2_wrong_share": 0.9568464730290457,
+   "labels_of_found": {
+    "fish": 1006,
+    "echinus": 444,
+    "jellyfish": 147,
+    "starfish": 74,
+    "corals": 20,
+    "turtle": 8,
+    "cuttlefish": 1
+   },
+   "tide": {
+    "ap50": 8.32723138529768,
+    "errors": {
+     "Cls": 53.214181095165586,
+     "Loc": 0.7357981593899563,
+     "Both": 0.019793291184855732,
+     "Dupe": 0.07999523437945122,
+     "Bkg": 0.4232795266984404,
+     "Miss": 4.184457397113153
+    }
+   }
+  }
+ },
+ "images": 300,
+ "objects": 2698
+}

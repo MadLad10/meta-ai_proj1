@@ -1,0 +1,23 @@
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llrrr}
+\toprule
+Class list & Default & Share & Acc. & On obj. \\
+\midrule
+\multicolumn{5}{l}{\emph{Grounding DINO}} \\
+DUO, 4 names & sea urchin & 96 & 28 & -- \\
+DUO, reversed & sea urchin & 96 & 28 & 66 \\
+DUO, Latin names & holothurian & 87 & 31 & -- \\
+RUOD's 10 names & fish & 80 & 1 & 46 \\
+\midrule
+\multicolumn{5}{l}{\emph{OWLv2}} \\
+DUO, 4 names & starfish & 92 & 26 & -- \\
+DUO, Latin names & starfish & 60 & 25 & -- \\
+RUOD's 10 names & jellyfish & 82 & 2 & 30 \\
+\bottomrule
+\end{tabular}
+\caption{The same 240 DUO crops (60 per class) under different class lists. Share: crops (\%) given the default answer; Acc.: mean accuracy over the four classes (\%, chance 25); On obj.: crops (\%) whose highest-scoring box covers the object (IoU $\geq$ 0.5), recorded only in the CPU runs; the reversed run gives the same answers as the original order, so its value also describes the four-name list. 95\% intervals are within $\pm$7 points.}
+\label{tab:vocab}
+\end{table}
